@@ -1,7 +1,7 @@
 //? REACT IMPORTS
 import { useState } from "react";
 import { HiSwitchHorizontal } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // ? STYLE IMPORTS
 import Pvp from "../../assets/images/player-vs-player.svg";
@@ -10,12 +10,19 @@ import Logo from "../../assets/images/logo.svg";
 import Styles from "./MainMenu.module.scss";
 
 const MainMenu = () => {
+  const navigate = useNavigate();
   const [player, setPlayer] = useState(true);
   return (
     <div className={Styles.mainMenu}>
       <img src={Logo} alt="logo" className={Styles.logo} />
       {player ? (
-        <Link to={"/inGame"} className={Styles.pvp}>
+        <button
+          to={"/inGame"}
+          className={Styles.pvp}
+          onClick={(event) =>
+            event.target.tagName !== "svg" ? navigate("/inGame") : ""
+          }
+        >
           <p className={Styles.pvpText}>PLAYER VS PLAYER</p>
 
           <img src={Pvp} alt="pvp" />
@@ -23,7 +30,7 @@ const MainMenu = () => {
             onClick={() => setPlayer(!player)}
             className={Styles.switch}
           />
-        </Link>
+        </button>
       ) : (
         <button className={`${Styles.pvpCpu} ${Styles.pvp}`}>
           <p>PLAYER VS CPU</p>
