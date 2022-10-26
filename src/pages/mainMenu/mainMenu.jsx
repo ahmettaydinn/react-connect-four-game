@@ -15,14 +15,15 @@ const MainMenu = () => {
     <div className={Styles.mainMenu}>
       <img src={Logo} alt="logo" className={Styles.logo} />
       {player ? (
-        <button className={Styles.pvp}>
-          <p>PLAYER VS PLAYER</p>
+        <Link to={"/inGame"} className={Styles.pvp}>
+          <p className={Styles.pvpText}>PLAYER VS PLAYER</p>
+
           <img src={Pvp} alt="pvp" />
           <HiSwitchHorizontal
             onClick={() => setPlayer(!player)}
             className={Styles.switch}
           />
-        </button>
+        </Link>
       ) : (
         <button className={`${Styles.pvpCpu} ${Styles.pvp}`}>
           <p>PLAYER VS CPU</p>

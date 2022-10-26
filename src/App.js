@@ -10,12 +10,12 @@ import InGame from "./components/inGame/InGame";
 function App() {
   return (
     <>
-      <InGame />
-      {/* <Routes>
+      <Routes>
+        <Route path="/inGame" element={<InGame />} />
         <Route path="/rules" element={<Rules />} />
         <Route path="/" element={<MainMenu />} />
         <Route path="*" element={<NotFound />} />
-      </Routes> */}
+      </Routes>
     </>
   );
 }

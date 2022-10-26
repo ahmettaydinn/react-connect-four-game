@@ -11,6 +11,12 @@
   display: flex;
   align-items: center;
   transition: 0.5s;
+  text-decoration: none;
+}
+
+.pvpText {
+  text-decoration: none;
+  color: black;
 }
 
 .gameRules {
@@ -24,7 +30,9 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 15%;
+  left: 5%;
+
+  width: 90%;
 }
 
 .logo {
