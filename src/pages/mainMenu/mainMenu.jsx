@@ -23,8 +23,7 @@ const MainMenu = () => {
             event.target.tagName !== "svg" ? navigate("/inGame") : ""
           }
         >
-          <p className={Styles.pvpText}>PLAYER VS PLAYER</p>
-
+          <p>PLAYER VS PLAYER </p>
           <img src={Pvp} alt="pvp" />
           <HiSwitchHorizontal
             onClick={() => setPlayer(!player)}
