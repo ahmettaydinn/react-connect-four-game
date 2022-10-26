@@ -1,0 +1,183 @@
+@import "../../scss/variables", "../../scss/mixins";
+
+@font-face {
+  font-family: spaceGroteskBold;
+  src: url(../../assets/fonts/static/SpaceGrotesk-Bold.ttf);
+}
+
+@font-face {
+  font-family: spaceGroteskMedium;
+  src: url(../../assets/fonts/static/SpaceGrotesk-Medium.ttf);
+}
+
+.rulesContainer img {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// ?=========================================================
+// ?                    MIXINS
+// ?=========================================================
+
+@include media-xsm {
+  .rulesContainer {
+    border: 30px solid orange;
+    position: relative;
+    height: 65%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $white;
+    width: 93%;
+    box-shadow: 1px 12px 1px 1px rgba(0, 0, 0, 0.7);
+    border-radius: 2rem;
+    border: 3px solid rgba(0, 0, 0, 0.8);
+  }
+
+  .rulesContainer h1 {
+    font-size: 48px;
+    text-align: center;
+    font-family: spaceGroteskBold;
+    height: 10%;
+  }
+
+  .rulesContainer h2 {
+    color: $purple;
+    font-family: spaceGroteskBold;
+    margin-left: 8%;
+    font-size: 24px;
+  }
+
+  .rulesContainer ol {
+    counter-reset: item;
+    list-style-type: none;
+    padding-left: 13%;
+    width: 84%;
+  }
+
+  .rulesContainer li {
+    display: block;
+    text-indent: -27px;
+    font-family: spaceGroteskMedium;
+    margin-bottom: 10px;
+    font-size: 17px;
+  }
+
+  .firstParagraph {
+    margin-top: 10%;
+  }
+
+  .secondParagraph {
+    margin-top: 10%;
+  }
+
+  .rulesContainer p {
+    font-family: spaceGroteskMedium;
+    width: 84%;
+    margin-left: 8%;
+    font-size: 17px;
+  }
+  .rulesContainer li:before {
+    content: counter(item) "    ";
+    counter-increment: item;
+  }
+}
+
+@include media-sm {
+  .rulesContainer {
+    width: 70%;
+  }
+
+  .rulesContainer h1 {
+    font-size: 48px;
+  }
+
+  .rulesContainer h2 {
+    font-size: 24px;
+  }
+
+  .rulesContainer li {
+    font-size: 19px;
+  }
+
+  .rulesContainer p {
+    font-size: 19px;
+  }
+}
+
+@include media-md {
+  .rulesContainer {
+    width: 40%;
+  }
+
+  .rulesContainer h1 {
+    font-size: 48px;
+  }
+
+  .rulesContainer h2 {
+    font-size: 24px;
+  }
+
+  .rulesContainer li {
+    font-size: 17px;
+  }
+
+  .rulesContainer p {
+    font-size: 19px;
+  }
+}
+
+@include media-lg {
+  .rulesContainer {
+    width: 40%;
+  }
+
+  .rulesContainer h1 {
+    font-size: 56px;
+  }
+
+  .rulesContainer h2 {
+    font-size: 24px;
+  }
+
+  .rulesContainer li {
+    font-size: 20px;
+  }
+
+  .rulesContainer p {
+    font-size: 20px;
+  }
+}
+@media screen and (max-height: 850px) {
+  .rulesContainer {
+    height: 80%;
+  }
+
+  .rulesContainer p,
+  .rulesContainer li {
+    font-size: 18px;
+  }
+}
+@media screen and (max-height: 750px) {
+  .rulesContainer {
+    height: 90%;
+  }
+
+  .rulesContainer p,
+  .rulesContainer li {
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-height: 666px) {
+  .rulesContainer {
+    height: 95%;
+  }
+  .rulesContainer p,
+  .rulesContainer li {
+    font-size: 16px;
+  }
+}
