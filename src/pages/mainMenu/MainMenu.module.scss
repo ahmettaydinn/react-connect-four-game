@@ -70,17 +70,22 @@
   margin-right: 20%;
 }
 
-.switch {
+.switchPvp,
+.switchCpu {
   cursor: pointer;
-  transition: 1s;
+
   margin-right: 3%;
   height: 52px;
   width: 52px;
   width: 20%;
   color: black;
 }
+.pvp img {
+  margin-left: 10%;
+}
 
-.switch:hover {
+.switchPvp:hover,
+.switchCpu:hover {
   transform: scale(1.1);
 }
 
@@ -120,7 +125,8 @@
   .gameRules p {
     font-size: 42px;
   }
-  .switch,
+  .switchPvp,
+  .switchCpu,
   .pvp img {
     width: 70px;
     height: 70px;
@@ -153,7 +159,8 @@
     font-size: 14px;
   }
 
-  .switch,
+  .switchPvp,
+  .switchCpu,
   .pvp img {
     width: 32px;
     height: 32px;
@@ -169,7 +176,8 @@
     font-size: 18px;
   }
 
-  .switch,
+  .switchPvp,
+  .switchCpu,
   .pvp img {
     width: 32px;
     height: 32px;
@@ -184,7 +192,8 @@
   .pvp p {
     font-size: 20px;
   }
-  .switch,
+  .switchPvp,
+  .switchCpu,
   .pvp img {
     width: 52px;
     height: 52px;
@@ -200,7 +209,8 @@
     font-size: 24px;
   }
 
-  .switch,
+  .switchPvp,
+  .switchCpu,
   .pvp img {
     width: 64px;
     height: 64px;

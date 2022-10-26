@@ -27,7 +27,7 @@ const MainMenu = () => {
           <img src={Pvp} alt="pvp" />
           <HiSwitchHorizontal
             onClick={() => setPlayer(!player)}
-            className={Styles.switch}
+            className={Styles.switchPvp}
           />
         </button>
       ) : (
@@ -35,7 +35,7 @@ const MainMenu = () => {
           <p>PLAYER VS CPU</p>
           <img src={PvpCpu} alt="pvp" />
           <HiSwitchHorizontal
-            className={Styles.switch}
+            className={Styles.switchCpu}
             onClick={() => setPlayer(!player)}
           />
         </button>
