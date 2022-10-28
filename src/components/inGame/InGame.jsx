@@ -19,6 +19,15 @@ import Styles from "./InGame.module.scss";
 const InGame = () => {
   const boardRef = useRef();
 
+  const [slot, setSlot] = useState({
+    0: 5,
+    1: 5,
+    2: 5,
+    3: 5,
+    4: 5,
+    5: 5,
+    6: 5,
+  });
   const [modalShow, setModalShow] = useState(false);
   const [markerMove, setMarkerMove] = useState({});
   const [column, setColumn] = useState(0);
@@ -128,12 +137,13 @@ const InGame = () => {
       {
         color: turn ? "red" : "yellow",
         left: 68 * column + 15 + 20 * (column - 1) + 25,
-        top: 69 * row + 15 + 20 * (row - 1) + 25,
+        top: 69 * slot[column] + 15 + 20 * slot[column] + 4,
       },
     ]);
     setTurn(!turn);
+    setSlot({ ...slot, [column]: slot[column] - 1 });
   };
-
+  console.log(slot);
   return (
     <div className={Styles.inGameContainer}>
       <p>{`x: ${markerMove.x} , y: ${markerMove.y}`}</p>
