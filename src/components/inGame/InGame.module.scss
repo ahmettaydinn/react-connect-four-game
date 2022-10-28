@@ -93,7 +93,7 @@
 
 .marker {
   top: 15%;
-  left: 375px;
+  left: 650px;
 }
 
 .turn p {
@@ -111,8 +111,13 @@
 .turnText {
   z-index: 4;
 }
-.board img {
-  z-index: 4;
+
+.BlackBoard {
+  z-index: 3;
+}
+
+.WhiteBoard {
+  z-index: 5;
 }
 
 .board {

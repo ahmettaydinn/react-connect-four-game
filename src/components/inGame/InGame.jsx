@@ -1,7 +1,7 @@
 //? REACT IMPORTS
 import { Link } from "react-router-dom";
 import MyVerticallyCenteredModal from "../../components/menu/Menu";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Ball from "../ball/Ball";
 // ? STYLE IMPORTS
 import Logo from "../../assets/images/logo.svg";
@@ -17,6 +17,8 @@ import YellowMarker from "../../assets/images/marker-yellow.svg";
 import Styles from "./InGame.module.scss";
 
 const InGame = () => {
+  const boardRef = useRef();
+
   const [modalShow, setModalShow] = useState(false);
   const [markerMove, setMarkerMove] = useState({});
   const [column, setColumn] = useState(0);
@@ -24,54 +26,109 @@ const InGame = () => {
   // true for red false for yellow
   const [turn, setTurn] = useState(false);
   const [balls, setBalls] = useState([]);
-  // const [currentBall, setCurrentBall] = useState({});
+  const [boardPosition, setBoardPosition] = useState({ x: 0, y: 0 });
 
   const updateDisplay = (event) => {
-    console.log(event.target.offsetLeft);
-    console.log("pageX", event.pageX);
-    console.log("pageY", event.pageY);
     setMarkerMove({ x: event.clientX, y: event.clientY });
 
-    if (event.pageX > 340 && event.pageX < 400) {
+    if (
+      event.pageX > boardRef.current.offsetLeft - 325 + 15 &&
+      event.pageX < boardRef.current.offsetLeft - 325 + 80
+    ) {
+      setColumn(0);
+    } else if (
+      event.pageX > boardRef.current.offsetLeft - 325 + 115 &&
+      event.pageX < boardRef.current.offsetLeft - 325 + 185
+    ) {
       setColumn(1);
-    } else if (event.pageX > 435 && event.pageX < 480) {
+    } else if (
+      event.pageX > boardRef.current.offsetLeft - 325 + 200 &&
+      event.pageX < boardRef.current.offsetLeft - 325 + 270
+    ) {
       setColumn(2);
-    } else if (event.pageX > 520 && event.pageX < 575) {
+    } else if (
+      event.pageX > boardRef.current.offsetLeft - 325 + 290 &&
+      event.pageX < boardRef.current.offsetLeft - 325 + 360
+    ) {
       setColumn(3);
-    } else if (event.pageX > 610 && event.pageX < 660) {
+    } else if (
+      event.pageX > boardRef.current.offsetLeft - 325 + 380 &&
+      event.pageX < boardRef.current.offsetLeft - 325 + 450
+    ) {
       setColumn(4);
-    } else if (event.pageX > 700 && event.pageX < 750) {
+    } else if (
+      event.pageX > boardRef.current.offsetLeft - 325 + 470 &&
+      event.pageX < boardRef.current.offsetLeft - 325 + 540
+    ) {
       setColumn(5);
-    } else if (event.pageX > 790 && event.pageX < 840) {
+    } else if (
+      event.pageX > boardRef.current.offsetLeft - 325 + 560 &&
+      event.pageX < boardRef.current.offsetLeft - 325 + 630
+    ) {
       setColumn(6);
-    } else if (event.pageX > 875 && event.pageX < 925) {
-      setColumn(7);
     }
 
-    if (event.pageY > 188 && event.pageY < 253) {
+    if (
+      event.pageY > boardRef.current.offsetTop - 320 &&
+      event.pageY < boardRef.current.offsetTop - 205
+    ) {
+      setRow(0);
+    } else if (
+      event.pageY > boardRef.current.offsetTop - 190 &&
+      event.pageY < boardRef.current.offsetTop - 120
+    ) {
       setRow(1);
-    } else if (event.pageY > 278 && event.pageY < 345) {
+    } else if (
+      event.pageY > boardRef.current.offsetTop - 100 &&
+      event.pageY < boardRef.current.offsetTop - 30
+    ) {
       setRow(2);
-    } else if (event.pageY > 370 && event.pageY < 430) {
+    } else if (
+      event.pageY > boardRef.current.offsetTop - 10 &&
+      event.pageY < boardRef.current.offsetTop + 60
+    ) {
       setRow(3);
-    } else if (event.pageY > 450 && event.pageY < 517) {
+    } else if (
+      event.pageY > boardRef.current.offsetTop + 80 &&
+      event.pageY < boardRef.current.offsetTop + 150
+    ) {
       setRow(4);
-    } else if (event.pageY > 540 && event.pageY < 600) {
+    } else if (
+      event.pageY > boardRef.current.offsetTop + 170 &&
+      event.pageY < boardRef.current.offsetTop + 240
+    ) {
       setRow(5);
-    } else if (event.pageY > 630 && event.pageY < 699) {
-      setRow(6);
     }
   };
+
+  useEffect(() => {
+    // const gapPositions = {
+    //   id: 51,
+    //   x: ,
+    //   y: boardRef.current.offsetTop + 65 * 1 + 15 + 17 * 0,
+    // };
+    setBoardPosition({
+      x: boardRef.current.offsetLeft,
+      y: boardRef.current.offsetTop,
+    });
+    console.log("board position in useEffect");
+    console.log(boardPosition);
+  }, []);
+
   const handlePlay = (event) => {
+    setBoardPosition({
+      x: boardRef.current.offsetLeft,
+      y: boardRef.current.offsetTop,
+    });
+    console.log("board position in function");
+    console.log(boardPosition);
+    console.log(boardRef);
     setBalls([
       ...balls,
       { color: turn ? "red" : "yellow", x: event.pageX, y: event.pageY },
     ]);
     setTurn(!turn);
   };
-
-  console.log(balls);
-  console.log("turn", turn);
 
   return (
     <div className={Styles.inGameContainer}>
@@ -102,6 +159,7 @@ const InGame = () => {
           onMouseLeave={updateDisplay}
           onMouseMove={updateDisplay}
           onClick={handlePlay}
+          ref={boardRef}
         >
           {balls.map((ball) => {
             return (
@@ -109,8 +167,9 @@ const InGame = () => {
                 key={ball.x}
                 style={{
                   position: "absolute",
-                  left: `${ball.x - 350}px`,
-                  top: `${ball.y - 200}px`,
+                  left: `${68 * column + 15 + 20 * (column - 1) + 25}px`,
+                  top: `${69 * row + 15 + 20 * (row - 1) + 25}px`,
+                  zIndex: "4",
                 }}
               >
                 <Ball turn={turn} ball={ball} />
