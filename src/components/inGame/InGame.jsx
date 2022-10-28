@@ -120,8 +120,6 @@ const InGame = () => {
       x: boardRef.current.offsetLeft,
       y: boardRef.current.offsetTop,
     });
-    console.log("board position in useEffect");
-    console.log(boardPosition);
   }, []);
 
   const handlePlay = (event) => {
@@ -129,9 +127,7 @@ const InGame = () => {
       x: boardRef.current.offsetLeft,
       y: boardRef.current.offsetTop,
     });
-    console.log("board position in function");
-    console.log(boardPosition);
-    console.log(boardRef);
+
     setBalls([
       ...balls,
       {
@@ -146,8 +142,12 @@ const InGame = () => {
   console.log(slot);
   return (
     <div className={Styles.inGameContainer}>
-      <p>{`x: ${markerMove.x} , y: ${markerMove.y}`}</p>
-      <p>{`column: ${column} row: ${row}`}</p>
+      <div className="d-flex text-center justify-content-center gap-5">
+        <p>{`x: ${markerMove.x} , y: ${markerMove.y}`}</p>
+        <p>{`column: ${column} row: ${row}`}</p>
+        <p>{`board positionX: ${boardPosition.x} , board positionY: ${boardPosition.y}`}</p>
+      </div>
+
       <nav className={Styles.inGameNav}>
         <Link className={Styles.link} onClick={() => setModalShow(true)}>
           MENU
