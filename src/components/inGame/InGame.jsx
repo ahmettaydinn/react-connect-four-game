@@ -125,7 +125,11 @@ const InGame = () => {
     console.log(boardRef);
     setBalls([
       ...balls,
-      { color: turn ? "red" : "yellow", x: event.pageX, y: event.pageY },
+      {
+        color: turn ? "red" : "yellow",
+        left: 68 * column + 15 + 20 * (column - 1) + 25,
+        top: 69 * row + 15 + 20 * (row - 1) + 25,
+      },
     ]);
     setTurn(!turn);
   };
@@ -167,8 +171,8 @@ const InGame = () => {
                 key={ball.x}
                 style={{
                   position: "absolute",
-                  left: `${68 * column + 15 + 20 * (column - 1) + 25}px`,
-                  top: `${69 * row + 15 + 20 * (row - 1) + 25}px`,
+                  left: `${ball.left}px`,
+                  top: `${ball.top}px`,
                   zIndex: "4",
                 }}
               >
