@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const Ball = ({ turn, ball }) => {
   const [color, setColor] = useState(turn);
+  setColor(turn);
   console.log(turn);
   return color ? (
     <img src={RedBall} alt="redBall" />
