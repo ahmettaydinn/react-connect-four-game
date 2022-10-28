@@ -12,6 +12,7 @@ import Styles from "./MainMenu.module.scss";
 const MainMenu = () => {
   const navigate = useNavigate();
   const [player, setPlayer] = useState(true);
+
   return (
     <div className={Styles.mainMenu}>
       <img src={Logo} alt="logo" className={Styles.logo} />

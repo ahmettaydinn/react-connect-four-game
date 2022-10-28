@@ -1,0 +1,82 @@
+@import "../../scss/variables";
+
+.menuContainer {
+  position: relative;
+
+  width: 100%;
+}
+
+.menuBody {
+  position: absolute;
+  transform: translate(5%, -50%);
+  background-color: $purple;
+  gap: 5%;
+  box-shadow: 1px 12px 1px 1px rgba(0, 0, 0, 0);
+  border-radius: 2rem;
+  border: 3px solid rgba(0, 0, 0, 0);
+  font-family: spaceGroteskBold;
+  width: 25rem;
+  height: 30rem;
+  box-shadow: 1px 12px 1px 1px rgba(0, 0, 0, 0.7);
+  border-radius: 2rem;
+  border: 2px solid rgba(0, 0, 0, 0.8);
+}
+
+.closeIcon {
+  position: absolute;
+  left: 93%;
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+  bottom: 99%;
+}
+
+.menuHeader {
+  text-align: center;
+  color: white;
+  margin: 2rem;
+  font-size: 60px;
+}
+
+.continue,
+.restart,
+.quit {
+  font-size: 28px;
+  width: 21rem;
+  border: 2px solid black;
+  height: 5rem;
+  border-radius: 1rem;
+  box-shadow: 0px 8px 1px 1px rgba(0, 0, 0, 0.8);
+  margin-bottom: 1.3rem;
+  position: relative;
+}
+
+.continue p,
+.restart p,
+.quit p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 95%;
+}
+
+.continue:hover,
+.restart:hover,
+.quit:hover {
+  box-shadow: 0px 8px 1px 1px $darkPurple;
+}
+
+.continue:active,
+.restart:active,
+.quit:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 1px 1px $darkPurple;
+}
+.menuButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
