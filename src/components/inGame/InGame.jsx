@@ -142,7 +142,7 @@ const InGame = () => {
   console.log(slot);
   return (
     <div className={Styles.inGameContainer}>
-      <div className="d-flex text-center justify-content-center gap-5">
+      <div className="d-flex text-center justify-content-center gap-5 text-warning">
         <p>{`x: ${markerMove.x} , y: ${markerMove.y}`}</p>
         <p>{`column: ${column} row: ${row}`}</p>
         <p>{`board positionX: ${boardPosition.x} , board positionY: ${boardPosition.y}`}</p>
