@@ -33,9 +33,16 @@ const InGame = () => {
   const [column, setColumn] = useState(0);
   const [row, setRow] = useState(0);
   // true for red false for yellow
-  const [turn, setTurn] = useState(false);
+  const [turn, setTurn] = useState(true);
   const [balls, setBalls] = useState([]);
   const [boardPosition, setBoardPosition] = useState({ x: 0, y: 0 });
+  const [timer, setTimer] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTimer(timer + 1);
+    }, 1000);
+  }, [timer]);
 
   const updateDisplay = (event) => {
     setMarkerMove({ x: event.clientX, y: event.clientY });
@@ -210,8 +217,8 @@ const InGame = () => {
       <div className={Styles.turn}>
         <img className={Styles.yellowTurn} src={YellowTurn} alt="YellowTurn" />
         <div className={Styles.turnText}>
-          <p>PLAYER 2'S TURN</p>
-          <h2>14s</h2>
+          <p>PLAYER {turn ? "1" : "2"}'S TURN</p>
+          <h2>{timer}s</h2>
         </div>
       </div>
       <div className={Styles.inGameFooter}></div>
