@@ -4,7 +4,7 @@ import RedBall from "../../assets/images/counter-red-large.svg";
 import YellowBall from "../../assets/images/counter-yellow-large.svg";
 import { useState, useEffect } from "react";
 
-const Ball = ({ turn, ball }) => {
+const Ball = ({ turn }) => {
   const [color, setColor] = useState(turn);
 
   useEffect(() => {

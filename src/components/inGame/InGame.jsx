@@ -113,6 +113,7 @@ const InGame = () => {
   const [boardPosition, setBoardPosition] = useState({ x: 0, y: 0 });
   const [timer, setTimer] = useState(0);
   const [winner, setWinner] = useState("");
+  const [winningBalls, setWinningBalls] = useState([]);
 
   useEffect(() => {
     let redCounter = 0;
@@ -126,26 +127,100 @@ const InGame = () => {
         }
         if (redCounter > 3) {
           setWinner("yellow");
-          console.log(winningArray[i]);
+
+          let won = winningArray[i];
+          setWinningBalls(won);
+          break;
         }
 
         if (yellowCounter > 3) {
           setWinner("red");
-          console.log(winningArray[i]);
+
+          let won = winningArray[i];
+          setWinningBalls(won);
+          break;
         }
       }
       redCounter = 0;
       yellowCounter = 0;
     }
 
-    console.log(winner);
-  }, [turn]);
+    let newBalls = balls.map((ball) => {
+      if (
+        String(ball.num) === String(winningBalls[0]) ||
+        String(ball.num) === String(winningBalls[1]) ||
+        String(ball.num) === String(winningBalls[2]) ||
+        String(ball.num) === String(winningBalls[3])
+      ) {
+        return {
+          check: true,
+          color: ball.color,
+          left: ball.left,
+          num: ball.num,
+          top: ball.top,
+        };
+      } else {
+        return {
+          check: false,
+          color: ball.color,
+          left: ball.left,
+          num: ball.num,
+          top: ball.top,
+        };
+      }
+    });
+
+    setBalls(newBalls);
+  }, [turn, winningBalls]);
 
   useEffect(() => {
     setTimeout(() => {
       setTimer(timer + 1);
     }, 1000);
   }, [timer]);
+
+  useEffect(() => {
+    // const gapPositions = {
+    //   id: 51,
+    //   x: ,
+    //   y: boardRef.current.offsetTop + 65 * 1 + 15 + 17 * 0,
+    // };
+    setYellowPlayerBalls([]);
+    setRedPlayerBalls([]);
+    setBoardPosition({
+      x: boardRef.current.offsetLeft,
+      y: boardRef.current.offsetTop,
+    });
+  }, []);
+
+  const handlePlay = (event) => {
+    if (slot[column] >= 0) {
+      setBoardPosition({
+        x: boardRef.current.offsetLeft,
+        y: boardRef.current.offsetTop,
+      });
+
+      setBalls([
+        ...balls,
+        {
+          color: turn ? "red" : "yellow",
+          left: 68 * column + 15 + 20 * (column - 1) + 25,
+          top: 69 * slot[column] + 15 + 20 * slot[column] + 4,
+          num: slot[column] * 7 + column,
+          check: false,
+        },
+      ]);
+      console.log(balls);
+      if (turn) {
+        setRedPlayerBalls([...redPlayerBalls, slot[column] * 7 + column]);
+      } else {
+        setYellowPlayerBalls([...yellowPlayerBalls, slot[column] * 7 + column]);
+      }
+
+      setSlot({ ...slot, [column]: slot[column] - 1 });
+      setTurn(!turn);
+    }
+  };
 
   const updateDisplay = (event) => {
     setMarkerMove({ x: event.clientX, y: event.clientY });
@@ -220,47 +295,6 @@ const InGame = () => {
     }
   };
 
-  useEffect(() => {
-    // const gapPositions = {
-    //   id: 51,
-    //   x: ,
-    //   y: boardRef.current.offsetTop + 65 * 1 + 15 + 17 * 0,
-    // };
-    setYellowPlayerBalls([]);
-    setRedPlayerBalls([]);
-    setBoardPosition({
-      x: boardRef.current.offsetLeft,
-      y: boardRef.current.offsetTop,
-    });
-  }, []);
-
-  const handlePlay = (event) => {
-    if (slot[column] >= 0) {
-      setBoardPosition({
-        x: boardRef.current.offsetLeft,
-        y: boardRef.current.offsetTop,
-      });
-
-      setBalls([
-        ...balls,
-        {
-          color: turn ? "red" : "yellow",
-          left: 68 * column + 15 + 20 * (column - 1) + 25,
-          top: 69 * slot[column] + 15 + 20 * slot[column] + 4,
-        },
-      ]);
-
-      if (turn) {
-        setRedPlayerBalls([...redPlayerBalls, slot[column] * 7 + column]);
-      } else {
-        setYellowPlayerBalls([...yellowPlayerBalls, slot[column] * 7 + column]);
-      }
-
-      setSlot({ ...slot, [column]: slot[column] - 1 });
-      setTurn(!turn);
-    }
-  };
-
   return (
     <div className={Styles.inGameContainer}>
       <div className="d-flex text-center justify-content-center gap-5 text-warning">
@@ -301,6 +335,7 @@ const InGame = () => {
             return (
               <div
                 key={ball.x}
+                className={ball.check && Styles.ballDiv}
                 style={{
                   position: "absolute",
                   left: `${ball.left}px`,
