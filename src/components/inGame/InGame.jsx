@@ -266,7 +266,7 @@ const InGame = () => {
         <p>{`x: ${markerMove.x} , y: ${markerMove.y}`}</p>
         <p>{`column: ${column} row: ${row}`}</p>
         <p>{`board positionX: ${boardPosition.x} , board positionY: ${boardPosition.y}`}</p>
-        <p>{winner} is the winner</p>
+        <p> {winner ? winner : "?"} is the winner</p>
       </div>
 
       <nav className={Styles.inGameNav}>
