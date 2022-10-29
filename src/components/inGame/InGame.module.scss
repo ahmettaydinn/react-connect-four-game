@@ -52,7 +52,8 @@
 .yellowTurn,
 .turnText,
 .marker,
-.inGameFooter {
+.inGameFooter,
+.winnerBoard {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -107,6 +108,31 @@
   top: 88.4%;
   z-index: 1;
 }
+
+.inGameFooterRed {
+  background-color: $red;
+  width: 100%;
+  height: 23%;
+  top: 88.4%;
+  z-index: 1;
+}
+
+.inGameFooterBlue {
+  background-color: $darkPurple;
+  width: 100%;
+  height: 23%;
+  top: 88.4%;
+  z-index: 1;
+}
+
+.inGameFooterYellow {
+  background-color: $yellow;
+  width: 100%;
+  height: 23%;
+  top: 88.4%;
+  z-index: 1;
+}
+
 .turn img,
 .turnText {
   z-index: 4;
@@ -141,4 +167,22 @@
   border-radius: 50%;
   border: 4px solid white;
   transition: 2s;
+}
+
+.winnerBoard {
+  top: 86%;
+  z-index: 4;
+  background-color: $white;
+  padding: 16px 28px;
+  border: 2px solid black;
+  padding: 5px 3.5rem;
+  border-radius: 1rem;
+  box-shadow: 0px 8px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.winnerBoard button {
+  background-color: $darkPurple;
+  padding: 0.3rem 0.5rem;
+  color: $white;
+  border-radius: 1rem;
 }

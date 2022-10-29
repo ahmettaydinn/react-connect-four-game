@@ -114,6 +114,8 @@ const InGame = () => {
   const [timer, setTimer] = useState(0);
   const [winner, setWinner] = useState("");
   const [winningBalls, setWinningBalls] = useState([]);
+  const [redScore, setRedScore] = useState(0);
+  const [yellowScore, setYellowScore] = useState(0);
 
   useEffect(() => {
     let redCounter = 0;
@@ -144,7 +146,9 @@ const InGame = () => {
       redCounter = 0;
       yellowCounter = 0;
     }
+  }, [turn]);
 
+  useEffect(() => {
     let newBalls = balls.map((ball) => {
       if (
         String(ball.num) === String(winningBalls[0]) ||
@@ -171,12 +175,19 @@ const InGame = () => {
     });
 
     setBalls(newBalls);
-  }, [turn, winningBalls]);
+    winner === "red"
+      ? setRedScore(redScore + 1)
+      : setYellowScore(yellowScore + 1);
+  }, [winningBalls]);
 
   useEffect(() => {
-    setTimeout(() => {
+    let macroTimer = setTimeout(() => {
       setTimer(timer + 1);
     }, 1000);
+
+    return () => {
+      clearTimeout(macroTimer);
+    };
   }, [timer]);
 
   useEffect(() => {
@@ -191,10 +202,12 @@ const InGame = () => {
       x: boardRef.current.offsetLeft,
       y: boardRef.current.offsetTop,
     });
+    setRedScore(0);
+    setYellowScore(0);
   }, []);
 
   const handlePlay = (event) => {
-    if (slot[column] >= 0) {
+    if (slot[column] >= 0 && !winner) {
       setBoardPosition({
         x: boardRef.current.offsetLeft,
         y: boardRef.current.offsetTop,
@@ -220,6 +233,42 @@ const InGame = () => {
       setSlot({ ...slot, [column]: slot[column] - 1 });
       setTurn(!turn);
     }
+  };
+
+  const handleReset = () => {
+    setBalls([]);
+    setTimer(0);
+    setWinner("");
+    setRedPlayerBalls([]);
+    setYellowPlayerBalls([]);
+    setSlot({
+      0: 5,
+      1: 5,
+      2: 5,
+      3: 5,
+      4: 5,
+      5: 5,
+      6: 5,
+    });
+  };
+
+  const handleRestart = () => {
+    setBalls([]);
+    setTimer(0);
+    setWinner("");
+    setRedPlayerBalls([]);
+    setYellowPlayerBalls([]);
+    setSlot({
+      0: 5,
+      1: 5,
+      2: 5,
+      3: 5,
+      4: 5,
+      5: 5,
+      6: 5,
+    });
+    setRedScore(0);
+    setYellowScore(0);
   };
 
   const updateDisplay = (event) => {
@@ -309,7 +358,9 @@ const InGame = () => {
           MENU
         </Link>
         <img src={Logo} alt="" />
-        <Link className={Styles.link}>RESTART</Link>
+        <Link className={Styles.link} onClick={handleRestart}>
+          RESTART
+        </Link>
       </nav>
       <img
         src={YellowMarker}
@@ -321,7 +372,7 @@ const InGame = () => {
         <div className={Styles.playerOne}>
           <img src={PlayerOne} alt="PlayerOne" />
           <p>PLAYER 1</p>
-          <h2>12</h2>
+          <h2>{redScore}</h2>
         </div>
         <div
           className={Styles.board}
@@ -361,17 +412,38 @@ const InGame = () => {
         <div className={Styles.playerTwo}>
           <img src={PlayerTwo} alt="PlayerTwo" />
           <p>PLAYER 2</p>
-          <h2>23</h2>
+          <h2>{yellowScore}</h2>
         </div>
       </div>
-      <div className={Styles.turn}>
-        <img className={Styles.yellowTurn} src={YellowTurn} alt="YellowTurn" />
-        <div className={Styles.turnText}>
-          <p>PLAYER {turn ? "1" : "2"}'S TURN</p>
-          <h2>{timer}s</h2>
+      {winner ? (
+        <div className={Styles.winnerBoard}>
+          <p>PLAYER {winner === "red" ? "1" : "2"}</p>
+          <h2>WINS</h2>
+          <button onClick={handleReset}>PlAY AGAIN</button>
         </div>
-      </div>
-      <div className={Styles.inGameFooter}></div>
+      ) : (
+        <div className={Styles.turn}>
+          <img
+            className={Styles.yellowTurn}
+            src={YellowTurn}
+            alt="YellowTurn"
+          />
+          <div className={Styles.turnText}>
+            <p>PLAYER {turn ? "1" : "2"}'S TURN</p>
+            <h2>{timer}s</h2>
+          </div>
+        </div>
+      )}
+
+      <div
+        className={`${Styles.inGameFooter} ${
+          winner === "red"
+            ? Styles.inGameFooterRed
+            : winner === "yellow"
+            ? Styles.inGameFooterYellow
+            : Styles.inGameFooterBlue
+        }`}
+      ></div>
 
       <MyVerticallyCenteredModal
         show={modalShow}
