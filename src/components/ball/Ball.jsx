@@ -11,7 +11,6 @@ const Ball = ({ turn, ball }) => {
     setColor(turn);
   }, []);
 
-  console.log(turn);
   return color ? (
     <img src={RedBall} alt="redBall" />
   ) : (

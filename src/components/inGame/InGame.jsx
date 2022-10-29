@@ -19,6 +19,8 @@ import Styles from "./InGame.module.scss";
 const InGame = () => {
   const boardRef = useRef();
 
+  const [redPlayerBalls, setRedPlayerBalls] = useState([]);
+  const [yellowPlayerBalls, setYellowPlayerBalls] = useState([]);
   const [slot, setSlot] = useState({
     0: 5,
     1: 5,
@@ -123,6 +125,8 @@ const InGame = () => {
     //   x: ,
     //   y: boardRef.current.offsetTop + 65 * 1 + 15 + 17 * 0,
     // };
+    setYellowPlayerBalls([]);
+    setRedPlayerBalls([]);
     setBoardPosition({
       x: boardRef.current.offsetLeft,
       y: boardRef.current.offsetTop,
@@ -130,23 +134,36 @@ const InGame = () => {
   }, []);
 
   const handlePlay = (event) => {
-    setBoardPosition({
-      x: boardRef.current.offsetLeft,
-      y: boardRef.current.offsetTop,
-    });
+    if (slot[column] >= 0) {
+      setBoardPosition({
+        x: boardRef.current.offsetLeft,
+        y: boardRef.current.offsetTop,
+      });
 
-    setBalls([
-      ...balls,
-      {
-        color: turn ? "red" : "yellow",
-        left: 68 * column + 15 + 20 * (column - 1) + 25,
-        top: 69 * slot[column] + 15 + 20 * slot[column] + 4,
-      },
-    ]);
-    setTurn(!turn);
-    setSlot({ ...slot, [column]: slot[column] - 1 });
+      setBalls([
+        ...balls,
+        {
+          color: turn ? "red" : "yellow",
+          left: 68 * column + 15 + 20 * (column - 1) + 25,
+          top: 69 * slot[column] + 15 + 20 * slot[column] + 4,
+        },
+      ]);
+
+      if (turn) {
+        setRedPlayerBalls([...redPlayerBalls, slot[column] * 7 + column]);
+      } else {
+        setYellowPlayerBalls([...yellowPlayerBalls, slot[column] * 7 + column]);
+      }
+
+      setSlot({ ...slot, [column]: slot[column] - 1 });
+      setTurn(!turn);
+      console.log("red side");
+      console.log(redPlayerBalls);
+      console.log("yellow side");
+      console.log(yellowPlayerBalls);
+    }
   };
-  console.log(slot);
+
   return (
     <div className={Styles.inGameContainer}>
       <div className="d-flex text-center justify-content-center gap-5 text-warning">
