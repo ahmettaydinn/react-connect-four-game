@@ -474,16 +474,29 @@ const InGame = () => {
         }
       }
 
-      setBalls([
-        ...balls,
-        {
-          color: turn ? "yellow" : "red",
-          left: 68 * cpuNum + 15 + 20 * (cpuNum - 1) + 25,
-          top: 69 * emptySlot + 15 + 20 * emptySlot + 4,
-          num: emptySlot * 7 + cpuNum,
-          check: false,
-        },
-      ]);
+      if (!isScreenSmall) {
+        setBalls([
+          ...balls,
+          {
+            color: turn ? "yellow" : "red",
+            left: 68 * cpuNum + 15 + 20 * (cpuNum - 1) + 25,
+            top: 69 * emptySlot + 15 + 20 * emptySlot + 4,
+            num: emptySlot * 7 + cpuNum,
+            check: false,
+          },
+        ]);
+      } else {
+        setBalls([
+          ...balls,
+          {
+            color: turn ? "yellow" : "red",
+            left: 33.5 * cpuNum + 15 + 13 * (cpuNum - 1) + 10,
+            top: 33.5 * emptySlot + 10 + 15 * emptySlot + 10,
+            num: emptySlot * 7 + cpuNum,
+            check: false,
+          },
+        ]);
+      }
     }
 
     if (turn) {
