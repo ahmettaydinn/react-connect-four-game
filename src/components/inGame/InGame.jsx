@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 //? REACT IMPORTS
 import { Link, useLocation } from "react-router-dom";
 import MyVerticallyCenteredModal from "../../components/menu/Menu";
