@@ -109,8 +109,8 @@ const InGame = () => {
   });
   const [modalShow, setModalShow] = useState(false);
   const [markerMove, setMarkerMove] = useState({});
-  const [column, setColumn] = useState(0);
-  const [row, setRow] = useState(0);
+  const [column, setColumn] = useState(-1);
+  const [row, setRow] = useState(-1);
   // true for yellow false for red
   const [turn, setTurn] = useState(true);
   const [balls, setBalls] = useState([]);
@@ -188,7 +188,7 @@ const InGame = () => {
     setcpuTurn(!cpuTurn);
     const height = window.innerHeight;
     const width = window.innerWidth;
-    if (width < 1090) {
+    if (width < 1190) {
       setIsScreenSmall(true);
     }
   }, []);
@@ -200,16 +200,29 @@ const InGame = () => {
         y: boardRef.current.offsetTop,
       });
 
-      setBalls([
-        ...balls,
-        {
-          color: turn ? "yellow" : "red",
-          left: 68 * column + 15 + 20 * (column - 1) + 25,
-          top: 69 * slot[column] + 15 + 20 * slot[column] + 4,
-          num: slot[column] * 7 + column,
-          check: false,
-        },
-      ]);
+      if (!isScreenSmall) {
+        setBalls([
+          ...balls,
+          {
+            color: turn ? "yellow" : "red",
+            left: 68 * column + 15 + 20 * (column - 1) + 25,
+            top: 69 * slot[column] + 15 + 20 * slot[column] + 4,
+            num: slot[column] * 7 + column,
+            check: false,
+          },
+        ]);
+      } else {
+        setBalls([
+          ...balls,
+          {
+            color: turn ? "yellow" : "red",
+            left: 33.5 * column + 15 + 13 * (column - 1) + 10,
+            top: 33.5 * slot[column] + 10 + 15 * slot[column] + 10,
+            num: slot[column] * 7 + column,
+            check: false,
+          },
+        ]);
+      }
 
       if (turn) {
         setRedPlayerBalls([...redPlayerBalls, slot[column] * 7 + column]);
@@ -271,74 +284,147 @@ const InGame = () => {
 
   const updateDisplay = (event) => {
     setMarkerMove({ x: event.clientX, y: event.clientY });
+    console.log(markerMove);
+    console.log(boardRef.current.offsetLeft);
 
-    if (
-      event.pageX > boardRef.current.offsetLeft - 325 + 15 &&
-      event.pageX < boardRef.current.offsetLeft - 325 + 80
-    ) {
-      setColumn(0);
-    } else if (
-      event.pageX > boardRef.current.offsetLeft - 325 + 115 &&
-      event.pageX < boardRef.current.offsetLeft - 325 + 185
-    ) {
-      setColumn(1);
-    } else if (
-      event.pageX > boardRef.current.offsetLeft - 325 + 200 &&
-      event.pageX < boardRef.current.offsetLeft - 325 + 270
-    ) {
-      setColumn(2);
-    } else if (
-      event.pageX > boardRef.current.offsetLeft - 325 + 290 &&
-      event.pageX < boardRef.current.offsetLeft - 325 + 360
-    ) {
-      setColumn(3);
-    } else if (
-      event.pageX > boardRef.current.offsetLeft - 325 + 380 &&
-      event.pageX < boardRef.current.offsetLeft - 325 + 450
-    ) {
-      setColumn(4);
-    } else if (
-      event.pageX > boardRef.current.offsetLeft - 325 + 470 &&
-      event.pageX < boardRef.current.offsetLeft - 325 + 540
-    ) {
-      setColumn(5);
-    } else if (
-      event.pageX > boardRef.current.offsetLeft - 325 + 560 &&
-      event.pageX < boardRef.current.offsetLeft - 325 + 630
-    ) {
-      setColumn(6);
-    }
+    if (!isScreenSmall) {
+      if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 15 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 80
+      ) {
+        setColumn(0);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 115 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 185
+      ) {
+        setColumn(1);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 200 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 270
+      ) {
+        setColumn(2);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 290 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 360
+      ) {
+        setColumn(3);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 380 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 450
+      ) {
+        setColumn(4);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 470 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 540
+      ) {
+        setColumn(5);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 560 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 630
+      ) {
+        setColumn(6);
+      }
 
-    if (
-      event.pageY > boardRef.current.offsetTop - 320 &&
-      event.pageY < boardRef.current.offsetTop - 205
-    ) {
-      setRow(0);
-    } else if (
-      event.pageY > boardRef.current.offsetTop - 190 &&
-      event.pageY < boardRef.current.offsetTop - 120
-    ) {
-      setRow(1);
-    } else if (
-      event.pageY > boardRef.current.offsetTop - 100 &&
-      event.pageY < boardRef.current.offsetTop - 30
-    ) {
-      setRow(2);
-    } else if (
-      event.pageY > boardRef.current.offsetTop - 10 &&
-      event.pageY < boardRef.current.offsetTop + 60
-    ) {
-      setRow(3);
-    } else if (
-      event.pageY > boardRef.current.offsetTop + 80 &&
-      event.pageY < boardRef.current.offsetTop + 150
-    ) {
-      setRow(4);
-    } else if (
-      event.pageY > boardRef.current.offsetTop + 170 &&
-      event.pageY < boardRef.current.offsetTop + 240
-    ) {
-      setRow(5);
+      if (
+        event.pageY > boardRef.current.offsetTop - 320 &&
+        event.pageY < boardRef.current.offsetTop - 205
+      ) {
+        setRow(0);
+      } else if (
+        event.pageY > boardRef.current.offsetTop - 190 &&
+        event.pageY < boardRef.current.offsetTop - 120
+      ) {
+        setRow(1);
+      } else if (
+        event.pageY > boardRef.current.offsetTop - 100 &&
+        event.pageY < boardRef.current.offsetTop - 30
+      ) {
+        setRow(2);
+      } else if (
+        event.pageY > boardRef.current.offsetTop - 10 &&
+        event.pageY < boardRef.current.offsetTop + 60
+      ) {
+        setRow(3);
+      } else if (
+        event.pageY > boardRef.current.offsetTop + 80 &&
+        event.pageY < boardRef.current.offsetTop + 150
+      ) {
+        setRow(4);
+      } else if (
+        event.pageY > boardRef.current.offsetTop + 170 &&
+        event.pageY < boardRef.current.offsetTop + 240
+      ) {
+        setRow(5);
+      }
+    } else {
+      if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 40 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 200
+      ) {
+        setColumn(0);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 50 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 250
+      ) {
+        setColumn(1);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 60 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 300
+      ) {
+        setColumn(2);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 70 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 350
+      ) {
+        setColumn(3);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 80 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 400
+      ) {
+        setColumn(4);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 90 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 450
+      ) {
+        setColumn(5);
+      } else if (
+        event.pageX > boardRef.current.offsetLeft - 325 + 100 &&
+        event.pageX < boardRef.current.offsetLeft - 325 + 500
+      ) {
+        setColumn(6);
+      }
+
+      if (
+        event.pageY > boardRef.current.offsetTop - 320 &&
+        event.pageY < boardRef.current.offsetTop - 120
+      ) {
+        setRow(0);
+      } else if (
+        event.pageY > boardRef.current.offsetTop - 105 &&
+        event.pageY < boardRef.current.offsetTop - 70
+      ) {
+        setRow(1);
+      } else if (
+        event.pageY > boardRef.current.offsetTop - 55 &&
+        event.pageY < boardRef.current.offsetTop - 20
+      ) {
+        setRow(2);
+      } else if (
+        event.pageY > boardRef.current.offsetTop &&
+        event.pageY < boardRef.current.offsetTop + 35
+      ) {
+        setRow(3);
+      } else if (
+        event.pageY > boardRef.current.offsetTop + 50 &&
+        event.pageY < boardRef.current.offsetTop + 85
+      ) {
+        setRow(4);
+      } else if (
+        event.pageY > boardRef.current.offsetTop + 100 &&
+        event.pageY < boardRef.current.offsetTop + 135
+      ) {
+        setRow(5);
+      }
     }
   };
 
@@ -375,30 +461,6 @@ const InGame = () => {
   }, [turn]);
 
   const cpuPlay = () => {
-    // let redCounter = 0;
-    // let yellowCounter = 0;
-
-    // for (let i = 0; i < winningArray.length; i++) {
-    //   for (let j = 0; j < winningArray[i].length; j++) {
-    //     if (redPlayerBalls.includes(winningArray[i][j])) {
-    //       redCounter++;
-    //     } else if (yellowPlayerBalls.includes(winningArray[i][j])) {
-    //       yellowCounter++;
-    //     }
-    //     if (redCounter > 3) {
-    //       setIsWon(true);
-    //       break;
-    //     }
-
-    //     if (yellowCounter > 3) {
-    //       setIsWon(true);
-    //       break;
-    //     }
-    //   }
-    //   redCounter = 0;
-    //   yellowCounter = 0;
-    // }
-
     let emptySlot;
     let cpuNum;
     if (!isWon) {

@@ -21,6 +21,7 @@
 
 .inGameNav {
   display: flex;
+
   justify-content: center;
   align-items: center;
   width: 45%;
@@ -233,6 +234,12 @@
   border-radius: 1rem;
 }
 
+.BlackBoard,
+.WhiteBoard {
+  width: 632px;
+  height: 584px;
+}
+
 @media screen and (max-width: 1190px) {
   .playerOne {
     left: 20%;
@@ -260,5 +267,131 @@
   .board {
     width: 22rem;
     height: 22rem;
+  }
+
+  .BlackBoard,
+  .WhiteBoard {
+    width: 335px;
+    height: 310px;
+  }
+}
+
+@media screen and (max-width: 1190px) {
+  .playerOne,
+  .playerTwo {
+    top: 30%;
+    left: 37%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    width: 10rem;
+    border: 2px solid red;
+
+    h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    img {
+      top: 7px;
+      left: -20px;
+      width: 40px;
+    }
+  }
+
+  .playerTwo {
+    left: 63%;
+    margin: 0;
+    img {
+      left: 135px;
+    }
+  }
+
+  .turn {
+    width: 150x;
+
+    img {
+      width: 150px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    h2 {
+      font-size: 36px;
+    }
+  }
+
+  .inGameFooter {
+    top: 90%;
+  }
+
+  .ballDiv:before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 10px;
+    top: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: 2s;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .playerOne,
+  .playerTwo {
+    top: 24%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    width: 10rem;
+    border: 2px solid red;
+    padding: 0.7rem 1rem;
+
+    h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    img {
+      top: 7px;
+      left: -20px;
+      width: 40px;
+    }
+  }
+
+  .playerTwo {
+    left: 50%;
+    margin: 0;
+    top: 30%;
+
+    img {
+      left: 135px;
+    }
+  }
+
+  .inGameNav {
+    gap: 2rem;
+    justify-content: center;
+    img {
+      width: 50px;
+      height: 50px;
+    }
   }
 }
