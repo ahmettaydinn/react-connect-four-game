@@ -1,4 +1,3 @@
-/* eslint-disable */
 //? REACT IMPORTS
 import { Link, useLocation } from "react-router-dom";
 import MyVerticallyCenteredModal from "../../components/menu/Menu";
@@ -95,6 +94,14 @@ const InGame = () => {
   ];
 
   const boardRef = useRef();
+  //
+  const button1 = useRef();
+  const button2 = useRef();
+  const button3 = useRef();
+  const button4 = useRef();
+  const button5 = useRef();
+  const button6 = useRef();
+  const button7 = useRef();
 
   const [redPlayerBalls, setRedPlayerBalls] = useState([]);
   const [yellowPlayerBalls, setYellowPlayerBalls] = useState([]);
@@ -108,9 +115,9 @@ const InGame = () => {
     6: 5,
   });
   const [modalShow, setModalShow] = useState(false);
-  const [markerMove, setMarkerMove] = useState({});
+  const [markerMove, setMarkerMove] = useState({ x: 0, y: 0 });
   const [column, setColumn] = useState(-1);
-  const [row, setRow] = useState(-1);
+  // const [row, setRow] = useState(-1);
   // true for yellow false for red
   const [turn, setTurn] = useState(true);
   const [balls, setBalls] = useState([]);
@@ -121,12 +128,20 @@ const InGame = () => {
   const [redScore, setRedScore] = useState(0);
   const [yellowScore, setYellowScore] = useState(0);
   const [cpuTurn, setcpuTurn] = useState(false);
-  const [isWon, setIsWon] = useState(false);
+
   const [isScreenSmall, setIsScreenSmall] = useState(false);
 
   //router data
   const location = useLocation();
   const isPlayer = location?.state?.test;
+
+  useEffect(() => {
+    function handleResize() {
+      window.location.reload();
+    }
+
+    window.addEventListener("resize", handleResize);
+  }, [isScreenSmall]);
 
   useEffect(() => {
     let newBalls = balls.map((ball) => {
@@ -186,51 +201,95 @@ const InGame = () => {
     setYellowScore(0);
     setTurn(!turn);
     setcpuTurn(!cpuTurn);
-    const height = window.innerHeight;
+    // const height = window.innerHeight;
     const width = window.innerWidth;
     if (width < 1190) {
       setIsScreenSmall(true);
     }
   }, []);
 
-  const handlePlay = () => {
-    if (slot[column] >= 0 && !winner) {
+  const handlePlay = (event) => {
+    console.log(typeof event.target.id);
+    if (slot[event.target.id] >= 0 && !winner) {
       setBoardPosition({
         x: boardRef.current.offsetLeft,
         y: boardRef.current.offsetTop,
       });
 
       if (!isScreenSmall) {
+        console.log("ahah");
         setBalls([
           ...balls,
           {
             color: turn ? "yellow" : "red",
-            left: 68 * column + 15 + 20 * (column - 1) + 25,
-            top: 69 * slot[column] + 15 + 20 * slot[column] + 4,
-            num: slot[column] * 7 + column,
+            left:
+              68 * Number(event.target.id) +
+              15 +
+              20 * (Number(event.target.id) - 1) +
+              25,
+            top:
+              69 * slot[Number(event.target.id)] +
+              15 +
+              20 * slot[Number(event.target.id)] +
+              4,
+            num: slot[Number(event.target.id)] * 7 + Number(event.target.id),
             check: false,
           },
         ]);
+
+        if (turn) {
+          setRedPlayerBalls([
+            ...redPlayerBalls,
+            slot[Number(event.target.id)] * 7 + Number(event.target.id),
+          ]);
+        } else {
+          setYellowPlayerBalls([
+            ...yellowPlayerBalls,
+            slot[Number(event.target.id)] * 7 + Number(event.target.id),
+          ]);
+        }
+
+        setSlot({
+          ...slot,
+          [Number(event.target.id)]: slot[Number(event.target.id)] - 1,
+        });
       } else {
         setBalls([
           ...balls,
           {
             color: turn ? "yellow" : "red",
-            left: 33.5 * column + 15 + 13 * (column - 1) + 10,
-            top: 33.5 * slot[column] + 10 + 15 * slot[column] + 10,
-            num: slot[column] * 7 + column,
+            left:
+              33.5 * Number(event.target.id) +
+              15 +
+              13 * (Number(event.target.id) - 1) +
+              10,
+            top:
+              33.5 * slot[Number(event.target.id)] +
+              10 +
+              15 * slot[Number(event.target.id)] +
+              10,
+            num: slot[Number(event.target.id)] * 7 + Number(event.target.id),
             check: false,
           },
         ]);
-      }
 
-      if (turn) {
-        setRedPlayerBalls([...redPlayerBalls, slot[column] * 7 + column]);
-      } else {
-        setYellowPlayerBalls([...yellowPlayerBalls, slot[column] * 7 + column]);
-      }
+        if (turn) {
+          setRedPlayerBalls([
+            ...redPlayerBalls,
+            slot[Number(event.target.id)] * 7 + Number(event.target.id),
+          ]);
+        } else {
+          setYellowPlayerBalls([
+            ...yellowPlayerBalls,
+            slot[Number(event.target.id)] * 7 + Number(event.target.id),
+          ]);
+        }
 
-      setSlot({ ...slot, [column]: slot[column] - 1 });
+        setSlot({
+          ...slot,
+          [Number(event.target.id)]: slot[Number(event.target.id)] - 1,
+        });
+      }
     }
 
     if (!winner && !isPlayer && turn) {
@@ -282,151 +341,151 @@ const InGame = () => {
     setYellowScore(0);
   };
 
-  const updateDisplay = (event) => {
-    setMarkerMove({ x: event.clientX, y: event.clientY });
-    console.log(markerMove);
-    console.log(boardRef.current.offsetLeft);
+  // const updateDisplay = (event) => {
+  //   setMarkerMove({ x: event.clientX, y: event.clientY });
+  //   console.log(markerMove);
+  //   console.log(boardRef.current.offsetLeft);
 
-    if (!isScreenSmall) {
-      if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 15 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 80
-      ) {
-        setColumn(0);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 115 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 185
-      ) {
-        setColumn(1);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 200 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 270
-      ) {
-        setColumn(2);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 290 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 360
-      ) {
-        setColumn(3);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 380 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 450
-      ) {
-        setColumn(4);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 470 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 540
-      ) {
-        setColumn(5);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 560 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 630
-      ) {
-        setColumn(6);
-      }
+  //   if (!isScreenSmall) {
+  //     if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 15 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 80
+  //     ) {
+  //       setColumn(0);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 115 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 185
+  //     ) {
+  //       setColumn(1);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 200 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 270
+  //     ) {
+  //       setColumn(2);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 290 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 360
+  //     ) {
+  //       setColumn(3);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 380 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 450
+  //     ) {
+  //       setColumn(4);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 470 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 540
+  //     ) {
+  //       setColumn(5);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 560 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 630
+  //     ) {
+  //       setColumn(6);
+  //     }
 
-      if (
-        event.pageY > boardRef.current.offsetTop - 320 &&
-        event.pageY < boardRef.current.offsetTop - 205
-      ) {
-        setRow(0);
-      } else if (
-        event.pageY > boardRef.current.offsetTop - 190 &&
-        event.pageY < boardRef.current.offsetTop - 120
-      ) {
-        setRow(1);
-      } else if (
-        event.pageY > boardRef.current.offsetTop - 100 &&
-        event.pageY < boardRef.current.offsetTop - 30
-      ) {
-        setRow(2);
-      } else if (
-        event.pageY > boardRef.current.offsetTop - 10 &&
-        event.pageY < boardRef.current.offsetTop + 60
-      ) {
-        setRow(3);
-      } else if (
-        event.pageY > boardRef.current.offsetTop + 80 &&
-        event.pageY < boardRef.current.offsetTop + 150
-      ) {
-        setRow(4);
-      } else if (
-        event.pageY > boardRef.current.offsetTop + 170 &&
-        event.pageY < boardRef.current.offsetTop + 240
-      ) {
-        setRow(5);
-      }
-    } else {
-      if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 40 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 200
-      ) {
-        setColumn(0);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 50 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 250
-      ) {
-        setColumn(1);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 60 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 300
-      ) {
-        setColumn(2);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 70 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 350
-      ) {
-        setColumn(3);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 80 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 400
-      ) {
-        setColumn(4);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 90 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 450
-      ) {
-        setColumn(5);
-      } else if (
-        event.pageX > boardRef.current.offsetLeft - 325 + 100 &&
-        event.pageX < boardRef.current.offsetLeft - 325 + 500
-      ) {
-        setColumn(6);
-      }
+  //     if (
+  //       event.pageY > boardRef.current.offsetTop - 320 &&
+  //       event.pageY < boardRef.current.offsetTop - 205
+  //     ) {
+  //       setRow(0);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop - 190 &&
+  //       event.pageY < boardRef.current.offsetTop - 120
+  //     ) {
+  //       setRow(1);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop - 100 &&
+  //       event.pageY < boardRef.current.offsetTop - 30
+  //     ) {
+  //       setRow(2);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop - 10 &&
+  //       event.pageY < boardRef.current.offsetTop + 60
+  //     ) {
+  //       setRow(3);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop + 80 &&
+  //       event.pageY < boardRef.current.offsetTop + 150
+  //     ) {
+  //       setRow(4);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop + 170 &&
+  //       event.pageY < boardRef.current.offsetTop + 240
+  //     ) {
+  //       setRow(5);
+  //     }
+  //   } else {
+  //     if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 40 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 200
+  //     ) {
+  //       setColumn(0);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 50 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 250
+  //     ) {
+  //       setColumn(1);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 60 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 300
+  //     ) {
+  //       setColumn(2);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 70 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 350
+  //     ) {
+  //       setColumn(3);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 80 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 400
+  //     ) {
+  //       setColumn(4);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 90 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 450
+  //     ) {
+  //       setColumn(5);
+  //     } else if (
+  //       event.pageX > boardRef.current.offsetLeft - 325 + 100 &&
+  //       event.pageX < boardRef.current.offsetLeft - 325 + 500
+  //     ) {
+  //       setColumn(6);
+  //     }
 
-      if (
-        event.pageY > boardRef.current.offsetTop - 320 &&
-        event.pageY < boardRef.current.offsetTop - 120
-      ) {
-        setRow(0);
-      } else if (
-        event.pageY > boardRef.current.offsetTop - 105 &&
-        event.pageY < boardRef.current.offsetTop - 70
-      ) {
-        setRow(1);
-      } else if (
-        event.pageY > boardRef.current.offsetTop - 55 &&
-        event.pageY < boardRef.current.offsetTop - 20
-      ) {
-        setRow(2);
-      } else if (
-        event.pageY > boardRef.current.offsetTop &&
-        event.pageY < boardRef.current.offsetTop + 35
-      ) {
-        setRow(3);
-      } else if (
-        event.pageY > boardRef.current.offsetTop + 50 &&
-        event.pageY < boardRef.current.offsetTop + 85
-      ) {
-        setRow(4);
-      } else if (
-        event.pageY > boardRef.current.offsetTop + 100 &&
-        event.pageY < boardRef.current.offsetTop + 135
-      ) {
-        setRow(5);
-      }
-    }
-  };
+  //     if (
+  //       event.pageY > boardRef.current.offsetTop - 320 &&
+  //       event.pageY < boardRef.current.offsetTop - 120
+  //     ) {
+  //       setRow(0);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop - 105 &&
+  //       event.pageY < boardRef.current.offsetTop - 70
+  //     ) {
+  //       setRow(1);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop - 55 &&
+  //       event.pageY < boardRef.current.offsetTop - 20
+  //     ) {
+  //       setRow(2);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop &&
+  //       event.pageY < boardRef.current.offsetTop + 35
+  //     ) {
+  //       setRow(3);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop + 50 &&
+  //       event.pageY < boardRef.current.offsetTop + 85
+  //     ) {
+  //       setRow(4);
+  //     } else if (
+  //       event.pageY > boardRef.current.offsetTop + 100 &&
+  //       event.pageY < boardRef.current.offsetTop + 135
+  //     ) {
+  //       setRow(5);
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     let redCounter = 0;
@@ -463,40 +522,38 @@ const InGame = () => {
   const cpuPlay = () => {
     let emptySlot;
     let cpuNum;
-    if (!isWon) {
-      while (true) {
-        let myNum = Math.floor(Math.random() * 6);
-        let cpuSlot = slot[myNum];
-        if (cpuSlot >= 0) {
-          emptySlot = cpuSlot;
-          cpuNum = myNum;
-          break;
-        }
+    while (true) {
+      let myNum = Math.floor(Math.random() * 6);
+      let cpuSlot = slot[myNum];
+      if (cpuSlot >= 0) {
+        emptySlot = cpuSlot;
+        cpuNum = myNum;
+        break;
       }
+    }
 
-      if (!isScreenSmall) {
-        setBalls([
-          ...balls,
-          {
-            color: turn ? "yellow" : "red",
-            left: 68 * cpuNum + 15 + 20 * (cpuNum - 1) + 25,
-            top: 69 * emptySlot + 15 + 20 * emptySlot + 4,
-            num: emptySlot * 7 + cpuNum,
-            check: false,
-          },
-        ]);
-      } else {
-        setBalls([
-          ...balls,
-          {
-            color: turn ? "yellow" : "red",
-            left: 33.5 * cpuNum + 15 + 13 * (cpuNum - 1) + 10,
-            top: 33.5 * emptySlot + 10 + 15 * emptySlot + 10,
-            num: emptySlot * 7 + cpuNum,
-            check: false,
-          },
-        ]);
-      }
+    if (!isScreenSmall) {
+      setBalls([
+        ...balls,
+        {
+          color: turn ? "yellow" : "red",
+          left: 68 * cpuNum + 15 + 20 * (cpuNum - 1) + 25,
+          top: 69 * emptySlot + 15 + 20 * emptySlot + 4,
+          num: emptySlot * 7 + cpuNum,
+          check: false,
+        },
+      ]);
+    } else {
+      setBalls([
+        ...balls,
+        {
+          color: turn ? "yellow" : "red",
+          left: 33.5 * cpuNum + 15 + 13 * (cpuNum - 1) + 10,
+          top: 33.5 * emptySlot + 10 + 15 * emptySlot + 10,
+          num: emptySlot * 7 + cpuNum,
+          check: false,
+        },
+      ]);
     }
 
     if (turn) {
@@ -540,12 +597,74 @@ const InGame = () => {
         </div>
         <div
           className={Styles.board}
-          onMouseEnter={updateDisplay}
-          onMouseLeave={updateDisplay}
-          onMouseMove={updateDisplay}
-          onClick={handlePlay}
+          // onMouseEnter={updateDisplay}
+          // onMouseLeave={updateDisplay}
+          // onMouseMove={updateDisplay}
+          // onClick={handlePlay}
           ref={boardRef}
         >
+          <div
+            id="0"
+            className={Styles.mobileButton}
+            button1
+            onClick={handlePlay}
+            ref={button1}
+          >
+            1
+          </div>
+          <div
+            id="1"
+            className={Styles.mobileButton}
+            button1
+            onClick={handlePlay}
+            ref={button2}
+          >
+            2
+          </div>
+          <div
+            id="2"
+            className={Styles.mobileButton}
+            button1
+            onClick={handlePlay}
+            ref={button3}
+          >
+            3
+          </div>
+          <div
+            id="3"
+            className={Styles.mobileButton}
+            button1
+            onClick={handlePlay}
+            ref={button4}
+          >
+            4
+          </div>
+          <div
+            id="4"
+            className={Styles.mobileButton}
+            button1
+            onClick={handlePlay}
+            ref={button5}
+          >
+            5
+          </div>
+          <div
+            id="5"
+            className={Styles.mobileButton}
+            button1
+            onClick={handlePlay}
+            ref={button6}
+          >
+            6
+          </div>
+          <div
+            className={Styles.mobileButton}
+            onClick={handlePlay}
+            ref={button7}
+            id="6"
+          >
+            7
+          </div>
           {balls.map((ball) => {
             return (
               <div
