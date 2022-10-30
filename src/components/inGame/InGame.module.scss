@@ -158,6 +158,52 @@
 }
 
 .ballDiv:before {
+  animation: bounce 1s linear;
+}
+
+@keyframes bounce {
+  20%,
+  50%,
+  80%,
+  to {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  70% {
+    transform: translateY(-15px);
+  }
+  90% {
+    transform: translateY(-4px);
+  }
+}
+
+.ballClass {
+  animation: hop 1s linear;
+}
+
+@keyframes hop {
+  0%,
+  90%,
+  to {
+    transform: translateY(0px);
+  }
+  0% {
+    transform: translateY(-300px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  70% {
+    transform: translateY(-50px);
+  }
+  90% {
+    transform: translateY(-25px);
+  }
+}
+
+.ballDiv:before {
   content: "";
   position: absolute;
   height: 45px;
@@ -167,6 +213,15 @@
   border-radius: 50%;
   border: 4px solid white;
   transition: 2s;
+}
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
 }
 
 .winnerBoard {

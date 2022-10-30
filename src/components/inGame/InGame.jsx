@@ -18,6 +18,9 @@ import YellowMarker from "../../assets/images/marker-yellow.svg";
 // import RedMarker from "../../assets/images/marker-red.svg";
 import Styles from "./InGame.module.scss";
 
+//Animation
+import { TransitionGroup } from "react-transition-group";
+
 const InGame = () => {
   let winningArray = [
     [0, 1, 2, 3],
@@ -159,7 +162,7 @@ const InGame = () => {
   useEffect(() => {
     let macroTimer = setTimeout(() => {
       setTimer(timer + 1);
-    }, 500);
+    }, 1000);
 
     return () => {
       clearTimeout(macroTimer);
@@ -218,7 +221,7 @@ const InGame = () => {
   };
 
   useEffect(() => {
-    if (!winner) {
+    if (!winner && !isPlayer) {
       console.log(winner);
       let cpuTimer = setTimeout(cpuPlay, 1000);
       return () => clearTimeout(cpuTimer);
@@ -435,9 +438,9 @@ const InGame = () => {
       </div>
 
       <nav className={Styles.inGameNav}>
-        <Link className={Styles.link} onClick={() => setModalShow(true)}>
+        <button className={Styles.link} onClick={() => setModalShow(true)}>
           MENU
-        </Link>
+        </button>
         <img src={Logo} alt="" />
         <Link className={Styles.link} onClick={handleRestart}>
           RESTART
@@ -465,18 +468,28 @@ const InGame = () => {
         >
           {balls.map((ball) => {
             return (
-              <div
-                key={ball.x}
-                className={ball.check && Styles.ballDiv}
-                style={{
-                  position: "absolute",
-                  left: `${ball.left}px`,
-                  top: `${ball.top}px`,
-                  zIndex: "4",
-                }}
+              <TransitionGroup
+                transitionName="example"
+                transitionAppear={true}
+                transitionAppearTimeout={2000}
+                transitionEnter={false}
+                transitionLeave={false}
               >
-                <Ball turn={turn} ball={ball} />
-              </div>
+                <div
+                  key={ball.x}
+                  className={`${ball.check && Styles.ballDiv} ${
+                    Styles.ballClass
+                  }`}
+                  style={{
+                    position: "absolute",
+                    left: `${ball.left}px`,
+                    top: `${ball.top}px`,
+                    zIndex: "4",
+                  }}
+                >
+                  <Ball turn={turn} ball={ball} />
+                </div>
+              </TransitionGroup>
             );
           })}
           <img
