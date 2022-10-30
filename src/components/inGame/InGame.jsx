@@ -7,7 +7,10 @@ import Ball from "../ball/Ball";
 // ? STYLE IMPORTS
 import Logo from "../../assets/images/logo.svg";
 import BlackBoard from "../../assets/images/board-layer-black-large.svg";
+import SmallBlackBoard from "../../assets/images/board-layer-black-small.svg";
+
 import WhiteBoard from "../../assets/images/board-layer-white-large.svg";
+import SmallWhiteBoard from "../../assets/images/board-layer-white-small.svg";
 import PlayerOne from "../../assets/images/player-one.svg";
 import PlayerTwo from "../../assets/images/player-two.svg";
 import CPU from "../../assets/images/cpu.svg";
@@ -17,9 +20,6 @@ import YellowTurn from "../../assets/images/turn-background-yellow.svg";
 import YellowMarker from "../../assets/images/marker-yellow.svg";
 // import RedMarker from "../../assets/images/marker-red.svg";
 import Styles from "./InGame.module.scss";
-
-//Animation
-import { TransitionGroup } from "react-transition-group";
 
 const InGame = () => {
   let winningArray = [
@@ -122,6 +122,7 @@ const InGame = () => {
   const [yellowScore, setYellowScore] = useState(0);
   const [cpuTurn, setcpuTurn] = useState(false);
   const [isWon, setIsWon] = useState(false);
+  const [isScreenSmall, setIsScreenSmall] = useState(false);
 
   //router data
   const location = useLocation();
@@ -185,6 +186,11 @@ const InGame = () => {
     setYellowScore(0);
     setTurn(!turn);
     setcpuTurn(!cpuTurn);
+    const height = window.innerHeight;
+    const width = window.innerWidth;
+    if (width < 1090) {
+      setIsScreenSmall(true);
+    }
   }, []);
 
   const handlePlay = () => {
@@ -222,7 +228,6 @@ const InGame = () => {
 
   useEffect(() => {
     if (!winner && !isPlayer) {
-      console.log(winner);
       let cpuTimer = setTimeout(cpuPlay, 1000);
       return () => clearTimeout(cpuTimer);
     }
@@ -468,37 +473,29 @@ const InGame = () => {
         >
           {balls.map((ball) => {
             return (
-              <TransitionGroup
-                transitionName="example"
-                transitionAppear={true}
-                transitionAppearTimeout={2000}
-                transitionEnter={false}
-                transitionLeave={false}
+              <div
+                key={ball.x}
+                className={`${ball.check && Styles.ballDiv} ${
+                  Styles.ballClass
+                }`}
+                style={{
+                  position: "absolute",
+                  left: `${ball.left}px`,
+                  top: `${ball.top}px`,
+                  zIndex: "4",
+                }}
               >
-                <div
-                  key={ball.x}
-                  className={`${ball.check && Styles.ballDiv} ${
-                    Styles.ballClass
-                  }`}
-                  style={{
-                    position: "absolute",
-                    left: `${ball.left}px`,
-                    top: `${ball.top}px`,
-                    zIndex: "4",
-                  }}
-                >
-                  <Ball turn={turn} ball={ball} />
-                </div>
-              </TransitionGroup>
+                <Ball turn={turn} ball={ball} isScreenSmall={isScreenSmall} />
+              </div>
             );
           })}
           <img
-            src={BlackBoard}
+            src={isScreenSmall ? SmallBlackBoard : BlackBoard}
             alt="BlackBoard"
             className={Styles.BlackBoard}
           />
           <img
-            src={WhiteBoard}
+            src={isScreenSmall ? SmallWhiteBoard : WhiteBoard}
             alt="WhiteBoard"
             className={Styles.WhiteBoard}
           />
@@ -506,7 +503,7 @@ const InGame = () => {
         <div className={Styles.playerTwo}>
           <img src={isPlayer ? PlayerTwo : CPU} alt="PlayerTwo" />
 
-          <p>{isPlayer ? "PLAYER 2" : "CPU"}</p>
+          <p>{!isPlayer ? "CPU" : "PLAYER 2"}</p>
 
           <h2>{redScore}</h2>
         </div>

@@ -65,7 +65,7 @@
   background-color: $white;
   padding: 16px 28px;
   border: 2px solid black;
-  padding: 3rem 2rem;
+  padding: 2rem 2rem;
   border-radius: 1rem;
   box-shadow: 0px 8px 1px 1px rgba(0, 0, 0, 0.8);
 }
@@ -215,15 +215,6 @@
   transition: 2s;
 }
 
-.example-appear {
-  opacity: 0.01;
-}
-
-.example-appear.example-appear-active {
-  opacity: 1;
-  transition: opacity 0.5s ease-in;
-}
-
 .winnerBoard {
   top: 86%;
   z-index: 4;
@@ -240,4 +231,34 @@
   padding: 0.3rem 0.5rem;
   color: $white;
   border-radius: 1rem;
+}
+
+@media screen and (max-width: 1190px) {
+  .playerOne {
+    left: 20%;
+    padding: 1rem 1rem;
+
+    p {
+      font-size: 16px;
+    }
+
+    h2 {
+      font-size: 36px;
+    }
+  }
+  .playerTwo {
+    left: 80%;
+    padding: 1rem 1rem;
+    p {
+      font-size: 16px;
+    }
+
+    h2 {
+      font-size: 36px;
+    }
+  }
+  .board {
+    width: 22rem;
+    height: 22rem;
+  }
 }
