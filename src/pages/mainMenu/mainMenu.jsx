@@ -11,6 +11,7 @@ import Styles from "./MainMenu.module.scss";
 
 const MainMenu = () => {
   const navigate = useNavigate();
+  // true for player false for CPU
   const [player, setPlayer] = useState(true);
 
   return (
@@ -18,10 +19,11 @@ const MainMenu = () => {
       <img src={Logo} alt="logo" className={Styles.logo} />
       {player ? (
         <button
-          to={"/inGame"}
           className={Styles.pvp}
           onClick={(event) =>
-            event.target.tagName !== "svg" ? navigate("/inGame") : ""
+            event.target.tagName !== "svg"
+              ? navigate("/inGame", { state: { test: player } })
+              : ""
           }
         >
           <p>PLAYER VS PLAYER </p>
@@ -32,7 +34,14 @@ const MainMenu = () => {
           />
         </button>
       ) : (
-        <button className={`${Styles.pvpCpu} ${Styles.pvp}`}>
+        <button
+          className={`${Styles.pvpCpu} ${Styles.pvp}`}
+          onClick={(event) =>
+            event.target.tagName !== "svg"
+              ? navigate("/inGame", { state: { test: player } })
+              : ""
+          }
+        >
           <p>PLAYER VS CPU</p>
           <img src={PvpCpu} alt="pvp" />
           <HiSwitchHorizontal

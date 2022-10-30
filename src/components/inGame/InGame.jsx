@@ -1,6 +1,6 @@
 /* eslint-disable */
 //? REACT IMPORTS
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MyVerticallyCenteredModal from "../../components/menu/Menu";
 import { useState, useRef, useEffect } from "react";
 import Ball from "../ball/Ball";
@@ -10,6 +10,7 @@ import BlackBoard from "../../assets/images/board-layer-black-large.svg";
 import WhiteBoard from "../../assets/images/board-layer-white-large.svg";
 import PlayerOne from "../../assets/images/player-one.svg";
 import PlayerTwo from "../../assets/images/player-two.svg";
+import CPU from "../../assets/images/cpu.svg";
 import YellowTurn from "../../assets/images/turn-background-yellow.svg";
 
 // import RedTurn from "../../assets/images/turn-background-red.svg";
@@ -107,7 +108,7 @@ const InGame = () => {
   const [markerMove, setMarkerMove] = useState({});
   const [column, setColumn] = useState(0);
   const [row, setRow] = useState(0);
-  // true for red false for yellow
+  // true for yellow false for red
   const [turn, setTurn] = useState(true);
   const [balls, setBalls] = useState([]);
   const [boardPosition, setBoardPosition] = useState({ x: 0, y: 0 });
@@ -116,37 +117,12 @@ const InGame = () => {
   const [winningBalls, setWinningBalls] = useState([]);
   const [redScore, setRedScore] = useState(0);
   const [yellowScore, setYellowScore] = useState(0);
+  const [cpuTurn, setcpuTurn] = useState(false);
+  const [isWon, setIsWon] = useState(false);
 
-  useEffect(() => {
-    let redCounter = 0;
-    let yellowCounter = 0;
-    for (let i = 0; i < winningArray.length; i++) {
-      for (let j = 0; j < winningArray[i].length; j++) {
-        if (redPlayerBalls.includes(winningArray[i][j])) {
-          redCounter++;
-        } else if (yellowPlayerBalls.includes(winningArray[i][j])) {
-          yellowCounter++;
-        }
-        if (redCounter > 3) {
-          setWinner("yellow");
-
-          let won = winningArray[i];
-          setWinningBalls(won);
-          break;
-        }
-
-        if (yellowCounter > 3) {
-          setWinner("red");
-
-          let won = winningArray[i];
-          setWinningBalls(won);
-          break;
-        }
-      }
-      redCounter = 0;
-      yellowCounter = 0;
-    }
-  }, [turn]);
+  //router data
+  const location = useLocation();
+  const isPlayer = location?.state?.test;
 
   useEffect(() => {
     let newBalls = balls.map((ball) => {
@@ -183,7 +159,7 @@ const InGame = () => {
   useEffect(() => {
     let macroTimer = setTimeout(() => {
       setTimer(timer + 1);
-    }, 1000);
+    }, 500);
 
     return () => {
       clearTimeout(macroTimer);
@@ -204,9 +180,11 @@ const InGame = () => {
     });
     setRedScore(0);
     setYellowScore(0);
+    setTurn(!turn);
+    setcpuTurn(!cpuTurn);
   }, []);
 
-  const handlePlay = (event) => {
+  const handlePlay = () => {
     if (slot[column] >= 0 && !winner) {
       setBoardPosition({
         x: boardRef.current.offsetLeft,
@@ -216,14 +194,14 @@ const InGame = () => {
       setBalls([
         ...balls,
         {
-          color: turn ? "red" : "yellow",
+          color: turn ? "yellow" : "red",
           left: 68 * column + 15 + 20 * (column - 1) + 25,
           top: 69 * slot[column] + 15 + 20 * slot[column] + 4,
           num: slot[column] * 7 + column,
           check: false,
         },
       ]);
-      console.log(balls);
+
       if (turn) {
         setRedPlayerBalls([...redPlayerBalls, slot[column] * 7 + column]);
       } else {
@@ -231,9 +209,21 @@ const InGame = () => {
       }
 
       setSlot({ ...slot, [column]: slot[column] - 1 });
-      setTurn(!turn);
     }
+
+    if (!winner && !isPlayer && turn) {
+      setcpuTurn(!cpuTurn);
+    }
+    setTurn(!turn);
   };
+
+  useEffect(() => {
+    if (!winner) {
+      console.log(winner);
+      let cpuTimer = setTimeout(cpuPlay, 1000);
+      return () => clearTimeout(cpuTimer);
+    }
+  }, [cpuTurn, winner]);
 
   const handleReset = () => {
     setBalls([]);
@@ -344,6 +334,97 @@ const InGame = () => {
     }
   };
 
+  useEffect(() => {
+    let redCounter = 0;
+    let yellowCounter = 0;
+    for (let i = 0; i < winningArray.length; i++) {
+      for (let j = 0; j < winningArray[i].length; j++) {
+        if (redPlayerBalls.includes(winningArray[i][j])) {
+          redCounter++;
+        } else if (yellowPlayerBalls.includes(winningArray[i][j])) {
+          yellowCounter++;
+        }
+        if (redCounter > 3) {
+          setWinner("yellow");
+
+          let won = winningArray[i];
+          setWinningBalls(won);
+
+          break;
+        }
+
+        if (yellowCounter > 3) {
+          setWinner("red");
+
+          let won = winningArray[i];
+          setWinningBalls(won);
+          break;
+        }
+      }
+      redCounter = 0;
+      yellowCounter = 0;
+    }
+  }, [turn]);
+
+  const cpuPlay = () => {
+    // let redCounter = 0;
+    // let yellowCounter = 0;
+
+    // for (let i = 0; i < winningArray.length; i++) {
+    //   for (let j = 0; j < winningArray[i].length; j++) {
+    //     if (redPlayerBalls.includes(winningArray[i][j])) {
+    //       redCounter++;
+    //     } else if (yellowPlayerBalls.includes(winningArray[i][j])) {
+    //       yellowCounter++;
+    //     }
+    //     if (redCounter > 3) {
+    //       setIsWon(true);
+    //       break;
+    //     }
+
+    //     if (yellowCounter > 3) {
+    //       setIsWon(true);
+    //       break;
+    //     }
+    //   }
+    //   redCounter = 0;
+    //   yellowCounter = 0;
+    // }
+
+    let emptySlot;
+    let cpuNum;
+    if (!isWon) {
+      while (true) {
+        let myNum = Math.floor(Math.random() * 6);
+        let cpuSlot = slot[myNum];
+        if (cpuSlot >= 0) {
+          emptySlot = cpuSlot;
+          cpuNum = myNum;
+          break;
+        }
+      }
+
+      setBalls([
+        ...balls,
+        {
+          color: turn ? "yellow" : "red",
+          left: 68 * cpuNum + 15 + 20 * (cpuNum - 1) + 25,
+          top: 69 * emptySlot + 15 + 20 * emptySlot + 4,
+          num: emptySlot * 7 + cpuNum,
+          check: false,
+        },
+      ]);
+    }
+
+    if (turn) {
+      setRedPlayerBalls([...redPlayerBalls, emptySlot * 7 + cpuNum]);
+    } else {
+      setYellowPlayerBalls([...yellowPlayerBalls, emptySlot * 7 + cpuNum]);
+    }
+
+    setSlot({ ...slot, [cpuNum]: emptySlot - 1 });
+    setTurn(!turn);
+  };
   return (
     <div className={Styles.inGameContainer}>
       <div className="d-flex text-center justify-content-center gap-5 text-warning">
@@ -371,8 +452,8 @@ const InGame = () => {
       <div className={Styles.main}>
         <div className={Styles.playerOne}>
           <img src={PlayerOne} alt="PlayerOne" />
-          <p>PLAYER 1</p>
-          <h2>{redScore}</h2>
+          <p>{!isPlayer ? "YOU" : "PLAYER 1"}</p>
+          <h2>{yellowScore}</h2>
         </div>
         <div
           className={Styles.board}
@@ -410,16 +491,26 @@ const InGame = () => {
           />
         </div>
         <div className={Styles.playerTwo}>
-          <img src={PlayerTwo} alt="PlayerTwo" />
-          <p>PLAYER 2</p>
-          <h2>{yellowScore}</h2>
+          <img src={isPlayer ? PlayerTwo : CPU} alt="PlayerTwo" />
+
+          <p>{isPlayer ? "PLAYER 2" : "CPU"}</p>
+
+          <h2>{redScore}</h2>
         </div>
       </div>
       {winner ? (
         <div className={Styles.winnerBoard}>
-          <p>PLAYER {winner === "red" ? "1" : "2"}</p>
+          <p>
+            {!isPlayer && turn
+              ? "CPU"
+              : !isPlayer
+              ? "PLAYER "
+              : winner === "yellow"
+              ? "PLAYER 1"
+              : "PLAYER 2"}
+          </p>
           <h2>WINS</h2>
-          <button onClick={handleReset}>PlAY AGAIN</button>
+          <button onClick={handleReset}>PLAY AGAIN</button>
         </div>
       ) : (
         <div className={Styles.turn}>
@@ -429,7 +520,7 @@ const InGame = () => {
             alt="YellowTurn"
           />
           <div className={Styles.turnText}>
-            <p>PLAYER {turn ? "1" : "2"}'S TURN</p>
+            <p>{turn ? "PLAYER 1" : " PLAYER 2"}'S TURN</p>
             <h2>{timer}s</h2>
           </div>
         </div>
@@ -437,9 +528,9 @@ const InGame = () => {
 
       <div
         className={`${Styles.inGameFooter} ${
-          winner === "red"
+          winner === "yellow"
             ? Styles.inGameFooterRed
-            : winner === "yellow"
+            : winner === "red"
             ? Styles.inGameFooterYellow
             : Styles.inGameFooterBlue
         }`}

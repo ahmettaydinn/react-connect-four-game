@@ -11,7 +11,7 @@ const Ball = ({ turn }) => {
     setColor(turn);
   }, []);
 
-  return color ? (
+  return !color ? (
     <img src={RedBall} alt="redBall" />
   ) : (
     <img src={YellowBall} alt="yellowBall" />
