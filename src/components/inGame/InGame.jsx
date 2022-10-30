@@ -497,12 +497,12 @@ const InGame = () => {
   };
   return (
     <div className={Styles.inGameContainer}>
-      <div className="d-flex text-center justify-content-center gap-5 text-warning">
+      {/* <div className="d-flex text-center justify-content-center gap-5 text-warning">
         <p>{`x: ${markerMove.x} , y: ${markerMove.y}`}</p>
         <p>{`column: ${column} row: ${row}`}</p>
         <p>{`board positionX: ${boardPosition.x} , board positionY: ${boardPosition.y}`}</p>
         <p> {winner ? winner : "?"} is the winner</p>
-      </div>
+      </div> */}
 
       <nav className={Styles.inGameNav}>
         <button className={Styles.link} onClick={() => setModalShow(true)}>
