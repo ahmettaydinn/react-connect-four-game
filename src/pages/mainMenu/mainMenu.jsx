@@ -31,6 +31,7 @@ const MainMenu = () => {
           <HiSwitchHorizontal
             onClick={() => setPlayer(!player)}
             className={Styles.switchPvp}
+            style={{ color: !player ? "white" : "black" }}
           />
         </button>
       ) : (

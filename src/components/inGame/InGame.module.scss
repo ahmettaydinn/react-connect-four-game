@@ -46,6 +46,10 @@
   border-radius: 5rem;
 }
 
+.link:hover {
+  color: rgb(218, 216, 216);
+}
+
 .BlackBoard,
 .WhiteBoard,
 .playerOne,
@@ -149,7 +153,6 @@
 
 .board {
   cursor: pointer;
-  border: 2px solid orange;
   height: 37.5rem;
   width: 40rem;
   z-index: 2;
@@ -165,7 +168,12 @@
 .mobileButton {
   z-index: 9;
   width: 67px;
-  border: 4px solid orange;
+  font-size: 1px;
+}
+
+.mobileButton:hover {
+  background-color: black;
+  opacity: 0.15;
 }
 
 .ballDiv:before {
@@ -292,14 +300,15 @@
   .mobileButton {
     z-index: 9;
     width: 37px;
-    border: 4px solid orange;
+    height: 300px;
+    margin-top: 25px;
   }
 }
 
 @media screen and (max-width: 1190px) {
   .playerOne,
   .playerTwo {
-    top: 30%;
+    top: 24%;
     left: 37%;
     display: flex;
     justify-content: center;
@@ -364,12 +373,17 @@
     border: 2px solid white;
     transition: 2s;
   }
+
+  .marker {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 @media screen and (max-width: 620px) {
   .playerOne,
   .playerTwo {
-    top: 24%;
+    top: 12%;
     left: 50%;
     display: flex;
     justify-content: center;
@@ -399,7 +413,7 @@
   .playerTwo {
     left: 50%;
     margin: 0;
-    top: 30%;
+    top: 20%;
 
     img {
       left: 135px;
@@ -409,9 +423,56 @@
   .inGameNav {
     gap: 2rem;
     justify-content: center;
+    transform: translateY(10px);
     img {
       width: 50px;
       height: 50px;
     }
+  }
+
+  .marker {
+    top: 28%;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .playerOne,
+  .playerTwo {
+    padding: 0;
+
+    img {
+      width: 20px;
+      left: -10px;
+      top: 2px;
+    }
+  }
+
+  .playerTwo {
+    top: 19%;
+  }
+
+  .marker {
+    top: 25%;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media screen and (max-height: 620px) {
+  .playerOne,
+  .playerTwo {
+    padding: 0;
+    top: 20%;
+
+    img {
+      width: 25px;
+      height: 25px;
+      left: -13px;
+      top: 1px;
+    }
+  }
+
+  .marker {
+    display: none;
   }
 }

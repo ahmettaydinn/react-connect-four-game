@@ -117,7 +117,7 @@ const InGame = () => {
     6: 5,
   });
   const [modalShow, setModalShow] = useState(false);
-  const [markerMove, setMarkerMove] = useState({ x: 0, y: 0 });
+  const [markerMove, setMarkerMove] = useState({ x: 200, y: 200 });
   const [column, setColumn] = useState(-1);
   // const [row, setRow] = useState(-1);
   // true for yellow false for red
@@ -132,6 +132,7 @@ const InGame = () => {
   const [cpuTurn, setcpuTurn] = useState(false);
 
   const [isScreenSmall, setIsScreenSmall] = useState(false);
+  const [isGameFinished, setIsGameFinished] = useState(false);
 
   //router data
   const location = useLocation();
@@ -172,10 +173,16 @@ const InGame = () => {
     });
 
     setBalls(newBalls);
-    winner === "red"
-      ? setRedScore(redScore + 1)
-      : setYellowScore(yellowScore + 1);
-  }, [winningBalls]);
+
+    if (winner === "red") {
+      setRedScore(redScore + 1);
+    } else {
+      setYellowScore(yellowScore + 1);
+    }
+
+    // console.log("burası çalışıyor");
+    setIsGameFinished(false);
+  }, [winningBalls, isGameFinished]);
 
   useEffect(() => {
     let macroTimer = setTimeout(() => {
@@ -292,12 +299,13 @@ const InGame = () => {
           [Number(event.target.id)]: slot[Number(event.target.id)] - 1,
         });
       }
+      setTurn(!turn);
     }
 
     if (!winner && !isPlayer && turn) {
       setcpuTurn(!cpuTurn);
+      setTurn(!turn);
     }
-    setTurn(!turn);
   };
 
   useEffect(() => {
@@ -343,151 +351,151 @@ const InGame = () => {
     setYellowScore(0);
   };
 
-  // const updateDisplay = (event) => {
-  //   setMarkerMove({ x: event.clientX, y: event.clientY });
-  //   console.log(markerMove);
-  //   console.log(boardRef.current.offsetLeft);
+  const updateDisplay = (event) => {
+    setMarkerMove({ x: event.clientX, y: event.clientY });
+    //   console.log(markerMove);
+    //   console.log(boardRef.current.offsetLeft);
 
-  //   if (!isScreenSmall) {
-  //     if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 15 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 80
-  //     ) {
-  //       setColumn(0);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 115 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 185
-  //     ) {
-  //       setColumn(1);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 200 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 270
-  //     ) {
-  //       setColumn(2);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 290 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 360
-  //     ) {
-  //       setColumn(3);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 380 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 450
-  //     ) {
-  //       setColumn(4);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 470 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 540
-  //     ) {
-  //       setColumn(5);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 560 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 630
-  //     ) {
-  //       setColumn(6);
-  //     }
+    //   if (!isScreenSmall) {
+    //     if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 15 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 80
+    //     ) {
+    //       setColumn(0);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 115 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 185
+    //     ) {
+    //       setColumn(1);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 200 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 270
+    //     ) {
+    //       setColumn(2);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 290 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 360
+    //     ) {
+    //       setColumn(3);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 380 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 450
+    //     ) {
+    //       setColumn(4);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 470 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 540
+    //     ) {
+    //       setColumn(5);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 560 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 630
+    //     ) {
+    //       setColumn(6);
+    //     }
 
-  //     if (
-  //       event.pageY > boardRef.current.offsetTop - 320 &&
-  //       event.pageY < boardRef.current.offsetTop - 205
-  //     ) {
-  //       setRow(0);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop - 190 &&
-  //       event.pageY < boardRef.current.offsetTop - 120
-  //     ) {
-  //       setRow(1);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop - 100 &&
-  //       event.pageY < boardRef.current.offsetTop - 30
-  //     ) {
-  //       setRow(2);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop - 10 &&
-  //       event.pageY < boardRef.current.offsetTop + 60
-  //     ) {
-  //       setRow(3);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop + 80 &&
-  //       event.pageY < boardRef.current.offsetTop + 150
-  //     ) {
-  //       setRow(4);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop + 170 &&
-  //       event.pageY < boardRef.current.offsetTop + 240
-  //     ) {
-  //       setRow(5);
-  //     }
-  //   } else {
-  //     if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 40 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 200
-  //     ) {
-  //       setColumn(0);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 50 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 250
-  //     ) {
-  //       setColumn(1);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 60 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 300
-  //     ) {
-  //       setColumn(2);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 70 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 350
-  //     ) {
-  //       setColumn(3);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 80 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 400
-  //     ) {
-  //       setColumn(4);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 90 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 450
-  //     ) {
-  //       setColumn(5);
-  //     } else if (
-  //       event.pageX > boardRef.current.offsetLeft - 325 + 100 &&
-  //       event.pageX < boardRef.current.offsetLeft - 325 + 500
-  //     ) {
-  //       setColumn(6);
-  //     }
+    //     if (
+    //       event.pageY > boardRef.current.offsetTop - 320 &&
+    //       event.pageY < boardRef.current.offsetTop - 205
+    //     ) {
+    //       setRow(0);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop - 190 &&
+    //       event.pageY < boardRef.current.offsetTop - 120
+    //     ) {
+    //       setRow(1);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop - 100 &&
+    //       event.pageY < boardRef.current.offsetTop - 30
+    //     ) {
+    //       setRow(2);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop - 10 &&
+    //       event.pageY < boardRef.current.offsetTop + 60
+    //     ) {
+    //       setRow(3);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop + 80 &&
+    //       event.pageY < boardRef.current.offsetTop + 150
+    //     ) {
+    //       setRow(4);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop + 170 &&
+    //       event.pageY < boardRef.current.offsetTop + 240
+    //     ) {
+    //       setRow(5);
+    //     }
+    //   } else {
+    //     if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 40 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 200
+    //     ) {
+    //       setColumn(0);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 50 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 250
+    //     ) {
+    //       setColumn(1);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 60 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 300
+    //     ) {
+    //       setColumn(2);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 70 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 350
+    //     ) {
+    //       setColumn(3);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 80 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 400
+    //     ) {
+    //       setColumn(4);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 90 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 450
+    //     ) {
+    //       setColumn(5);
+    //     } else if (
+    //       event.pageX > boardRef.current.offsetLeft - 325 + 100 &&
+    //       event.pageX < boardRef.current.offsetLeft - 325 + 500
+    //     ) {
+    //       setColumn(6);
+    //     }
 
-  //     if (
-  //       event.pageY > boardRef.current.offsetTop - 320 &&
-  //       event.pageY < boardRef.current.offsetTop - 120
-  //     ) {
-  //       setRow(0);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop - 105 &&
-  //       event.pageY < boardRef.current.offsetTop - 70
-  //     ) {
-  //       setRow(1);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop - 55 &&
-  //       event.pageY < boardRef.current.offsetTop - 20
-  //     ) {
-  //       setRow(2);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop &&
-  //       event.pageY < boardRef.current.offsetTop + 35
-  //     ) {
-  //       setRow(3);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop + 50 &&
-  //       event.pageY < boardRef.current.offsetTop + 85
-  //     ) {
-  //       setRow(4);
-  //     } else if (
-  //       event.pageY > boardRef.current.offsetTop + 100 &&
-  //       event.pageY < boardRef.current.offsetTop + 135
-  //     ) {
-  //       setRow(5);
-  //     }
-  //   }
-  // };
+    //     if (
+    //       event.pageY > boardRef.current.offsetTop - 320 &&
+    //       event.pageY < boardRef.current.offsetTop - 120
+    //     ) {
+    //       setRow(0);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop - 105 &&
+    //       event.pageY < boardRef.current.offsetTop - 70
+    //     ) {
+    //       setRow(1);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop - 55 &&
+    //       event.pageY < boardRef.current.offsetTop - 20
+    //     ) {
+    //       setRow(2);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop &&
+    //       event.pageY < boardRef.current.offsetTop + 35
+    //     ) {
+    //       setRow(3);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop + 50 &&
+    //       event.pageY < boardRef.current.offsetTop + 85
+    //     ) {
+    //       setRow(4);
+    //     } else if (
+    //       event.pageY > boardRef.current.offsetTop + 100 &&
+    //       event.pageY < boardRef.current.offsetTop + 135
+    //     ) {
+    //       setRow(5);
+    //     }
+    //   }
+  };
 
   useEffect(() => {
     let redCounter = 0;
@@ -569,13 +577,6 @@ const InGame = () => {
   };
   return (
     <div className={Styles.inGameContainer}>
-      {/* <div className="d-flex text-center justify-content-center gap-5 text-warning">
-        <p>{`x: ${markerMove.x} , y: ${markerMove.y}`}</p>
-        <p>{`column: ${column} row: ${row}`}</p>
-        <p>{`board positionX: ${boardPosition.x} , board positionY: ${boardPosition.y}`}</p>
-        <p> {winner ? winner : "?"} is the winner</p>
-      </div> */}
-
       <nav className={Styles.inGameNav}>
         <button className={Styles.link} onClick={() => setModalShow(true)}>
           MENU
@@ -601,7 +602,7 @@ const InGame = () => {
           className={Styles.board}
           // onMouseEnter={updateDisplay}
           // onMouseLeave={updateDisplay}
-          // onMouseMove={updateDisplay}
+          onMouseMove={updateDisplay}
           // onClick={handlePlay}
           ref={boardRef}
         >

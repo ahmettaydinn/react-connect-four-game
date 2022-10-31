@@ -65,7 +65,7 @@
 .continue:hover,
 .restart:hover,
 .quit:hover {
-  box-shadow: 0px 8px 1px 1px $darkPurple;
+  box-shadow: 0px 8px 1px 1px $red;
 }
 
 .continue:active,
@@ -84,4 +84,17 @@
 .quit p {
   text-decoration: none;
   color: black;
+}
+
+@media screen and (max-width: 1190px) {
+  .menuBody {
+    width: 20rem;
+    position: absolute;
+  }
+
+  .continue,
+  .restart,
+  .quit {
+    width: 19rem;
+  }
 }
