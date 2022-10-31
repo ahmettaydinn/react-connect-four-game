@@ -99,6 +99,7 @@
 .marker {
   top: 15%;
   left: 650px;
+  z-index: 10;
 }
 
 .turn p {
@@ -457,14 +458,25 @@
   }
 }
 
+@media screen and (m-height: 200px) {
+  .inGameNav {
+    transform: translateY(15%);
+  }
+
+  .marker {
+    top: 11%;
+    width: 25px;
+  }
+}
+
 @media screen and (max-height: 820px) {
   .inGameNav {
     transform: translateY(15%);
   }
 
   .marker {
-    top: 8%;
-    width: 20px;
+    top: 11%;
+    width: 25px;
   }
 }
 
