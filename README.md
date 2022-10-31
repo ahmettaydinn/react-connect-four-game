@@ -34,8 +34,8 @@ The aim of this project is to create a gamee with given figma design.Codes and a
 
 ### Built with
 - React
--React Router
--SASS and CSS module system
+- React Router
+- SASS and CSS module system
 - Bootstrap
 - Figma
 ## Notes
