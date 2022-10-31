@@ -461,6 +461,11 @@
   .inGameNav {
     transform: translateY(15%);
   }
+
+  .marker {
+    top: 8%;
+    width: 20px;
+  }
 }
 
 @media screen and (max-height: 620px) {
