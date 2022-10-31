@@ -259,6 +259,10 @@
 }
 
 @media screen and (max-width: 1190px) {
+  .marker {
+    display: none;
+  }
+
   .playerOne {
     left: 20%;
     padding: 1rem 1rem;
@@ -377,9 +381,19 @@
   .marker {
     width: 30px;
     height: 30px;
+    display: none;
   }
 }
+@media screen and (max-height: 820px) {
+  .inGameNav {
+    transform: translateY(15%);
+  }
 
+  .marker {
+    top: 11%;
+    width: 25px;
+  }
+}
 @media screen and (max-width: 620px) {
   .playerOne,
   .playerTwo {
@@ -458,27 +472,16 @@
   }
 }
 
-@media screen and (m-height: 200px) {
-  .inGameNav {
-    transform: translateY(15%);
-  }
+// @media screen and (m-height: 200px) {
+//   .inGameNav {
+//     transform: translateY(15%);
+//   }
 
-  .marker {
-    top: 11%;
-    width: 25px;
-  }
-}
-
-@media screen and (max-height: 820px) {
-  .inGameNav {
-    transform: translateY(15%);
-  }
-
-  .marker {
-    top: 11%;
-    width: 25px;
-  }
-}
+//   .marker {
+//     top: 11%;
+//     width: 25px;
+//   }
+// }
 
 @media screen and (max-height: 620px) {
   .playerOne,
