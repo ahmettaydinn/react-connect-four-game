@@ -21,7 +21,6 @@
 
 .inGameNav {
   display: flex;
-
   justify-content: center;
   align-items: center;
   width: 45%;
@@ -455,6 +454,12 @@
     top: 25%;
     width: 20px;
     height: 20px;
+  }
+}
+
+@media screen and (max-height: 820px) {
+  .inGameNav {
+    transform: translateY(15%);
   }
 }
 
