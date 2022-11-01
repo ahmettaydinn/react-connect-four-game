@@ -221,7 +221,7 @@ const InGame = () => {
 
   const handlePlay = (event) => {
     setIsButtonDisabled(true);
-    setTimeout(() => setIsButtonDisabled(false), 700);
+    setTimeout(() => setIsButtonDisabled(false), 600);
 
     // console.log(typeof event.target.id);
     if (slot[event.target.id] >= 0 && !winner) {
