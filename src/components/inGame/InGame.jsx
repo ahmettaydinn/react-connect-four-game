@@ -1,4 +1,4 @@
-/* eslint-not-disable */
+/* eslint-disable */
 
 //? REACT IMPORTS
 import { useLocation } from "react-router-dom";
