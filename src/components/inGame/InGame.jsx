@@ -16,10 +16,11 @@ import PlayerOne from "../../assets/images/player-one.svg";
 import PlayerTwo from "../../assets/images/player-two.svg";
 import CPU from "../../assets/images/cpu.svg";
 import YellowTurn from "../../assets/images/turn-background-yellow.svg";
+import RedTurn from "../../assets/images/turn-background-red.svg";
 
 // import RedTurn from "../../assets/images/turn-background-red.svg";
 import YellowMarker from "../../assets/images/marker-yellow.svg";
-// import RedMarker from "../../assets/images/marker-red.svg";
+import RedMarker from "../../assets/images/marker-red.svg";
 import Styles from "./InGame.module.scss";
 
 const InGame = () => {
@@ -70,7 +71,7 @@ const InGame = () => {
     [39, 31, 23, 15],
     [1, 9, 17, 25],
     [40, 32, 24, 16],
-    [9, 7, 25, 33],
+    [9, 17, 25, 33],
     [8, 16, 24, 32],
     [11, 7, 23, 29],
     [12, 18, 24, 30],
@@ -133,6 +134,7 @@ const InGame = () => {
 
   const [isScreenSmall, setIsScreenSmall] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   //router data
   const location = useLocation();
@@ -218,6 +220,9 @@ const InGame = () => {
   }, []);
 
   const handlePlay = (event) => {
+    setIsButtonDisabled(true);
+    setTimeout(() => setIsButtonDisabled(false), 700);
+
     console.log(typeof event.target.id);
     if (slot[event.target.id] >= 0 && !winner) {
       setBoardPosition({
@@ -582,12 +587,12 @@ const InGame = () => {
           MENU
         </button>
         <img src={Logo} alt="" />
-        <Link className={Styles.link} onClick={handleRestart}>
+        <button className={Styles.link} onClick={handleRestart}>
           RESTART
-        </Link>
+        </button>
       </nav>
       <img
-        src={YellowMarker}
+        src={!turn ? YellowMarker : RedMarker}
         className={Styles.marker}
         style={{ position: "absolute", left: `${markerMove.x}px` }}
         alt="YellowMarker"
@@ -606,68 +611,75 @@ const InGame = () => {
           // onClick={handlePlay}
           ref={boardRef}
         >
-          <div
+          <button
             id="0"
             className={Styles.mobileButton}
             button1
             onClick={handlePlay}
+            disabled={isButtonDisabled}
             ref={button1}
           >
             1
-          </div>
-          <div
+          </button>
+          <button
             id="1"
             className={Styles.mobileButton}
             button1
             onClick={handlePlay}
+            disabled={isButtonDisabled}
             ref={button2}
           >
             2
-          </div>
-          <div
+          </button>
+          <button
             id="2"
             className={Styles.mobileButton}
             button1
             onClick={handlePlay}
+            disabled={isButtonDisabled}
             ref={button3}
           >
             3
-          </div>
-          <div
+          </button>
+          <button
             id="3"
             className={Styles.mobileButton}
             button1
             onClick={handlePlay}
+            disabled={isButtonDisabled}
             ref={button4}
           >
             4
-          </div>
-          <div
+          </button>
+          <button
             id="4"
             className={Styles.mobileButton}
             button1
             onClick={handlePlay}
+            disabled={isButtonDisabled}
             ref={button5}
           >
             5
-          </div>
-          <div
+          </button>
+          <button
             id="5"
             className={Styles.mobileButton}
             button1
             onClick={handlePlay}
+            disabled={isButtonDisabled}
             ref={button6}
           >
             6
-          </div>
-          <div
+          </button>
+          <button
             className={Styles.mobileButton}
             onClick={handlePlay}
+            disabled={isButtonDisabled}
             ref={button7}
             id="6"
           >
             7
-          </div>
+          </button>
           {balls.map((ball) => {
             return (
               <div
@@ -723,11 +735,23 @@ const InGame = () => {
         <div className={Styles.turn}>
           <img
             className={Styles.yellowTurn}
-            src={YellowTurn}
+            src={!turn ? YellowTurn : RedTurn}
             alt="YellowTurn"
           />
-          <div className={Styles.turnText}>
-            <p>{turn ? "PLAYER 1" : " PLAYER 2"}'S TURN</p>
+          <div
+            className={Styles.turnText}
+            style={{ color: !turn ? "black" : "rgb(251, 251, 251)" }}
+          >
+            <p style={{ marginTop: "9px" }}>
+              {!isPlayer && turn
+                ? "PLAYER"
+                : !isPlayer && !turn
+                ? "CPU"
+                : turn
+                ? "PLAYER 1"
+                : " PLAYER 2"}
+              'S TURN
+            </p>
             <h2>{timer}s</h2>
           </div>
         </div>
