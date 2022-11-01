@@ -1,7 +1,7 @@
-/* eslint-disable */
+/* eslint-not-disable */
 
 //? REACT IMPORTS
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import MyVerticallyCenteredModal from "../../components/menu/Menu";
 import { useState, useRef, useEffect } from "react";
 import Ball from "../ball/Ball";
@@ -119,18 +119,18 @@ const InGame = () => {
   });
   const [modalShow, setModalShow] = useState(false);
   const [markerMove, setMarkerMove] = useState({ x: 200, y: 200 });
-  const [column, setColumn] = useState(-1);
+  // const [column, setColumn] = useState(-1);
   // const [row, setRow] = useState(-1);
   // true for yellow false for red
   const [turn, setTurn] = useState(true);
   const [balls, setBalls] = useState([]);
-  const [boardPosition, setBoardPosition] = useState({ x: 0, y: 0 });
+  // const [boardPosition, setBoardPosition] = useState({ x: 0, y: 0 });
   const [timer, setTimer] = useState(0);
   const [winner, setWinner] = useState("");
   const [winningBalls, setWinningBalls] = useState([]);
   const [redScore, setRedScore] = useState(0);
   const [yellowScore, setYellowScore] = useState(0);
-  const [cpuTurn, setcpuTurn] = useState(false);
+  const [cpuTurn, setcpuTurn] = useState(true);
 
   const [isScreenSmall, setIsScreenSmall] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
@@ -204,10 +204,10 @@ const InGame = () => {
     // };
     setYellowPlayerBalls([]);
     setRedPlayerBalls([]);
-    setBoardPosition({
-      x: boardRef.current.offsetLeft,
-      y: boardRef.current.offsetTop,
-    });
+    // setBoardPosition({
+    //   x: boardRef.current.offsetLeft,
+    //   y: boardRef.current.offsetTop,
+    // });
     setRedScore(0);
     setYellowScore(0);
     setTurn(!turn);
@@ -223,15 +223,14 @@ const InGame = () => {
     setIsButtonDisabled(true);
     setTimeout(() => setIsButtonDisabled(false), 700);
 
-    console.log(typeof event.target.id);
+    // console.log(typeof event.target.id);
     if (slot[event.target.id] >= 0 && !winner) {
-      setBoardPosition({
-        x: boardRef.current.offsetLeft,
-        y: boardRef.current.offsetTop,
-      });
+      // setBoardPosition({
+      //   x: boardRef.current.offsetLeft,
+      //   y: boardRef.current.offsetTop,
+      // });
 
       if (!isScreenSmall) {
-        console.log("ahah");
         setBalls([
           ...balls,
           {
@@ -535,6 +534,7 @@ const InGame = () => {
   }, [turn]);
 
   const cpuPlay = () => {
+    // console.log(isScreenSmall);
     let emptySlot;
     let cpuNum;
     while (true) {
@@ -683,7 +683,7 @@ const InGame = () => {
           {balls.map((ball) => {
             return (
               <div
-                key={ball.x}
+                key={ball.num}
                 className={`${ball.check && Styles.ballDiv} ${
                   Styles.ballClass
                 }`}
