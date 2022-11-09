@@ -17,7 +17,7 @@
 
 
 ## The challenge
-The aim of this project is to create a gamee with given figma design.Codes and algorithms are totally written by me.
+The aim of this project is to create a game with given figma design. All codes and algorithms are totally written by me.
 
 ## Links
 <hr>
