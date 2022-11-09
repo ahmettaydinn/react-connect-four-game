@@ -22,16 +22,13 @@ The aim of this project is to create a gamee with given figma design.Codes and a
 ## Links
 <hr>
 <b>Check The Live Website ➡️</b> <a href="https://hire-me-if-you-can.netlify.app/">Live Website</a>
+<hr>
 
 ## Screenshot
 <p align="center">
 <a href="https://hire-me-if-you-can.netlify.app/"><img  src="game.gif" alt="screenshot"></a>
 </p>
 
-
-
-
-<hr>
 
 ### Built with
 - React
