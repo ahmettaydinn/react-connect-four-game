@@ -19,6 +19,9 @@
 ## The challenge
 The aim of this project is to create a gamee with given figma design.Codes and algorithms are totally written by me.
 
+## Links
+<hr>
+<b>Check The Live Website ➡️</b> <a href="https://hire-me-if-you-can.netlify.app/">Live Website</a>
 
 ## Screenshot
 <p align="center">
@@ -27,9 +30,7 @@ The aim of this project is to create a gamee with given figma design.Codes and a
 
 
 
-## Links
-<hr>
-<b>Check The Live Website ➡️</b> <a href="https://hire-me-if-you-can.netlify.app/">Live Website</a>
+
 <hr>
 
 ### Built with
