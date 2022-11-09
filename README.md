@@ -29,7 +29,7 @@ The aim of this project is to create a gamee with given figma design.Codes and a
 <a href="https://hire-me-if-you-can.netlify.app/"><img  src="game.gif" alt="screenshot"></a>
 </p>
 
-
+<hr>
 ### Built with
 - React
 - React Router
