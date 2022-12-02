@@ -29,7 +29,7 @@ The aim of this project is to create a game with given figma design. All codes a
 </p>
 
 <hr>
-### Built with
+## Built with
 
 
 - React
@@ -42,7 +42,7 @@ The aim of this project is to create a game with given figma design. All codes a
 ## Notes
 
 
-### Useful resources
+## Useful resources
 
 - [W3 Schoold](https://www.w3schools.com/) - This helped me for basics of website paradigm. I really liked this pattern and will use it going forward.
 - [MDN](https://developer.mozilla.org/en-US/) - This is an amazing document which helped me finally understand deep sides of web development. I'd recommend it to anyone still learning these concepts.
