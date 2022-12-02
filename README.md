@@ -30,11 +30,15 @@ The aim of this project is to create a game with given figma design. All codes a
 
 <hr>
 ### Built with
+
+
 - React
 - React Router
 - SASS and CSS module system
 - Bootstrap
 - Figma
+
+
 ## Notes
 
 
