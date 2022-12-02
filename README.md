@@ -29,7 +29,9 @@ The aim of this project is to create a game with given figma design. All codes a
 </p>
 
 <hr>
+
 ## Built with
+
 
 
 - React
@@ -39,7 +41,7 @@ The aim of this project is to create a game with given figma design. All codes a
 - Figma
 
 
-## Notes
+
 
 
 ## Useful resources
