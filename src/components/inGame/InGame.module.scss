@@ -9,7 +9,19 @@
   font-family: spaceGroteskMedium;
   src: url(../../assets/fonts/static/SpaceGrotesk-Medium.ttf);
 }
-
+h1 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  padding-top: 1%;
+  color: $white;
+  font-size: 50px;
+  text-transform: uppercase;
+  -webkit-text-stroke: 2px #320368;
+  text-shadow: 1px 1px 0px #320368, 2px 2px 0px #320368, 1px 1px 0px $black,
+    3px 4px 0px $black, 4px 5px 0px $black, 5px 6px 0px $black;
+}
+.title {
+  padding-bottom: 1%;
+}
 .inGameContainer {
   font-family: spaceGroteskBold;
   width: 100vw;
@@ -54,7 +66,6 @@
 .playerOne,
 .playerTwo,
 .yellowTurn,
-.turnText,
 .marker,
 .inGameFooter,
 .winnerBoard {
@@ -90,10 +101,12 @@
 }
 
 .yellowTurn {
-  top: 86%;
+  position: fixed;
+  left: 85%;
+  margin-top: -15%;
 }
 .turnText {
-  top: 87%;
+  text-align: center;
 }
 
 .marker {
@@ -103,44 +116,34 @@
 }
 
 .turn p {
+  position: fixed;
+  padding-top: 2%;
+  left: 80%;
   font-size: 20px;
 }
 
 .inGameFooter {
   background-color: $darkPurple;
-  width: 100%;
-  height: 23%;
-  top: 88.4%;
-  z-index: 1;
 }
 
 .inGameFooterRed {
   background-color: $red;
   width: 100%;
   height: 23%;
-  top: 88.4%;
+  top: 58.4%;
   z-index: 1;
 }
 
 .inGameFooterBlue {
   background-color: $darkPurple;
-  width: 100%;
-  height: 23%;
-  top: 88.4%;
-  z-index: 1;
 }
 
 .inGameFooterYellow {
   background-color: $yellow;
   width: 100%;
   height: 23%;
-  top: 88.4%;
+  top: 58.4%;
   z-index: 1;
-}
-
-.turn img,
-.turnText {
-  z-index: 4;
 }
 
 .BlackBoard {
@@ -152,6 +155,7 @@
 }
 
 .board {
+  margin-top: 5rem;
   cursor: pointer;
   height: 37.5rem;
   width: 40rem;
@@ -237,7 +241,7 @@
 }
 
 .winnerBoard {
-  top: 86%;
+  top: 55%;
   z-index: 4;
   background-color: $white;
   padding: 16px 28px;
@@ -252,6 +256,9 @@
   padding: 0.3rem 0.5rem;
   color: $white;
   border-radius: 1rem;
+}
+.winnerBoard button:hover {
+  opacity: 0.85;
 }
 
 .BlackBoard,
@@ -289,6 +296,7 @@
     }
   }
   .board {
+    margin-top: 10rem;
     width: 22rem;
     height: 22rem;
   }
@@ -300,6 +308,7 @@
   }
 
   .board {
+    margin-top: 10rem;
     gap: 10px;
   }
 

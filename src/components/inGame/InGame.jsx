@@ -125,7 +125,7 @@ const InGame = () => {
   const [turn, setTurn] = useState(true);
   const [balls, setBalls] = useState([]);
   // const [boardPosition, setBoardPosition] = useState({ x: 0, y: 0 });
-  const [timer, setTimer] = useState(0);
+
   const [winner, setWinner] = useState("");
   const [winningBalls, setWinningBalls] = useState([]);
   const [redScore, setRedScore] = useState(0);
@@ -185,16 +185,6 @@ const InGame = () => {
     // console.log("burası çalışıyor");
     setIsGameFinished(false);
   }, [winningBalls, isGameFinished]);
-
-  useEffect(() => {
-    let macroTimer = setTimeout(() => {
-      setTimer(timer + 1);
-    }, 1000);
-
-    return () => {
-      clearTimeout(macroTimer);
-    };
-  }, [timer]);
 
   useEffect(() => {
     // const gapPositions = {
@@ -321,7 +311,7 @@ const InGame = () => {
 
   const handleReset = () => {
     setBalls([]);
-    setTimer(0);
+
     setWinner("");
     setRedPlayerBalls([]);
     setYellowPlayerBalls([]);
@@ -587,6 +577,9 @@ const InGame = () => {
           MENU
         </button>
         <img src={Logo} alt="" />
+        <h1>connect</h1>
+        <h1> 4</h1>
+        <img src={Logo} alt="" />
         <button className={Styles.link} onClick={handleRestart}>
           RESTART
         </button>
@@ -597,6 +590,7 @@ const InGame = () => {
         style={{ position: "absolute", left: `${markerMove.x}px` }}
         alt="YellowMarker"
       />
+
       <div className={Styles.main}>
         <div className={Styles.playerOne}>
           <img src={PlayerOne} alt="PlayerOne" />
@@ -752,7 +746,6 @@ const InGame = () => {
                 : " PLAYER 2"}
               'S TURN
             </p>
-            <h2>{timer}s</h2>
           </div>
         </div>
       )}
