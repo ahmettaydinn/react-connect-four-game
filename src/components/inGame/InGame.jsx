@@ -576,10 +576,11 @@ const InGame = () => {
         <button className={Styles.link} onClick={() => setModalShow(true)}>
           MENU
         </button>
-        <img src={Logo} alt="" />
-        <h1>connect</h1>
-        <h1> 4</h1>
-        <img src={Logo} alt="" />
+
+        <img src={Logo} className={Styles.logo2} alt="" />
+        <h1 className={Styles.header}> connect 4</h1>
+        <img src={Logo} className={Styles.logo} alt="" />
+
         <button className={Styles.link} onClick={handleRestart}>
           RESTART
         </button>

@@ -55,7 +55,7 @@ const MainMenu = () => {
           />
         </button>
       )}
-      <br></br>
+      <br></br> <br></br>
       <Link to={"/rules"} className={Styles.gameRules}>
         <p> GAME RULES</p>
       </Link>
