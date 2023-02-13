@@ -16,7 +16,11 @@ const MainMenu = () => {
 
   return (
     <div className={Styles.mainMenu}>
-      <img src={Logo} alt="logo" className={Styles.logo} />
+      <div className={Styles.title}>
+        <img src={Logo} alt="logo" className={Styles.logo} />
+        <h1>Connect 4</h1>
+        <img src={Logo} alt="logo" className={Styles.logo2} />
+      </div>
       {player ? (
         <button
           className={Styles.pvp}
@@ -51,7 +55,7 @@ const MainMenu = () => {
           />
         </button>
       )}
-
+      <br></br> <br></br>
       <Link to={"/rules"} className={Styles.gameRules}>
         <p> GAME RULES</p>
       </Link>

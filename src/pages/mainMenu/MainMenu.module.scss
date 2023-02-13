@@ -5,42 +5,85 @@
   font-family: spaceGroteskBold;
   src: url(../../assets/fonts/static/SpaceGrotesk-Bold.ttf);
 }
+.mainMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  height: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $purple;
+  box-shadow: 5px 10px 5px 1px $black;
+  border-radius: 2rem;
+  border: 2px solid $black;
+  font-family: spaceGroteskBold;
+  padding: 25px;
+}
+.title {
+  padding-bottom: 2%;
+  display: inline-block;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  width: 90%;
+  border: 20px $black;
+}
+.logo {
+  padding-left: 35%;
+  height: 100px;
+}
+.logo2 {
+  padding-left: 35%;
+  height: 100px;
+}
+
+h1 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: $yellow;
+  text-transform: uppercase;
+  -webkit-text-stroke: 2px #320368;
+  text-shadow: 1px 1px 0px #320368, 2px 2px 0px #320368, 1px 1px 0px $black,
+    3px 4px 0px $black, 4px 5px 0px $black, 5px 6px 0px $black;
+  font-size: 85px;
+}
 
 .pvp {
+  align-items: center;
+  margin-top: 10vh;
+  padding: 10px;
+  padding-top: 25px;
+  width: 90%;
   background-color: $yellow;
   display: flex;
-  align-items: center;
   transition: 0.5s;
   text-decoration: none;
+  height: 100px;
 }
 
 .gameRules {
+  padding-top: 15px;
+  padding: 10px;
+  height: 100px;
+  width: 90%;
+  align-items: center;
   background-color: $white;
-  text-indent: 3%;
-  color: $black;
-  position: relative;
+  display: flex;
+  top: -60%;
+  text-decoration: none;
 }
 
 .gameRules p {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 5%;
-
-  width: 90%;
-}
-
-.logo {
-  // width: 10.85%;
-  // height: 12.04%;
-  margin-bottom: 18%;
+  padding-left: 3%;
+  color: black;
+  font-size: 30px;
 }
 
 .gameRules,
 .pvp {
   border: 2px solid black;
-  width: 83.3%;
-  height: 17.01%;
   text-align: left;
   border-radius: 1rem;
   box-shadow: 0px 8px 1px 1px rgba(0, 0, 0, 0.8);
@@ -48,6 +91,7 @@
 
 .pvp p {
   color: black;
+  font-size: 30px;
 }
 .pvpCpu {
   background-color: $red;
@@ -81,14 +125,13 @@
   cursor: pointer;
   margin-right: 3%;
   height: 52px;
-  width: 52px;
   width: 20%;
 }
 .pvpCpu {
   color: white;
 }
 .pvp img {
-  margin-left: 10%;
+  margin-left: 40%;
 }
 
 .switchPvp:hover,
@@ -100,7 +143,7 @@
 // ?                    MIXINS
 // ?=========================================================
 
-@include media-xsm {
+/*@include media-xsm {
   .mainMenu {
     display: flex;
     flex-direction: column;
@@ -113,11 +156,22 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: $darkPurple;
-    gap: 5%;
     box-shadow: 1px 12px 1px 1px rgba(0, 0, 0, 0);
     border-radius: 0rem;
     border: 3px solid rgba(0, 0, 0, 0);
     font-family: spaceGroteskBold;
+  }
+  gameRules,
+  .pvp {
+    margin-bottom: 10%;
+    margin-top: 10%;
+  }
+  .h1 {
+    font-size: 10px;
+  }
+  .title {
+    margin-top: 0%;
+    width: 100%;
   }
   .gameRules p {
     font-size: 20px;
@@ -126,12 +180,12 @@
 
   .pvp p {
     font-family: spaceGroteskBold;
-    font-size: 32px;
+    font-size: 20px;
     margin-top: 12px;
   }
 
   .gameRules p {
-    font-size: 42px;
+    font-size: 20px;
   }
   .switchPvp,
   .switchCpu,
@@ -140,14 +194,13 @@
     height: 70px;
   }
 }
-
 @include media-sm {
   .mainMenu {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 33%;
+    width: 80%;
     height: 48.54%;
     position: absolute;
     top: 50%;
@@ -164,7 +217,7 @@
   }
 
   .pvp p {
-    font-size: 14px;
+    font-size: 20px;
   }
 
   .switchPvp,
@@ -176,12 +229,16 @@
 }
 
 @include media-md {
+  .mainMenu {
+    width: 60%;
+  }
+
   .gameRules p {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .pvp p {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .switchPvp,
@@ -194,7 +251,7 @@
 
 @include media-lg {
   .gameRules p {
-    font-size: 28px;
+    font-size: 20px;
   }
 
   .pvp p {
@@ -210,11 +267,11 @@
 
 @include media-xl {
   .gameRules p {
-    font-size: 32px;
+    font-size: 20px;
   }
 
   .pvp p {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .switchPvp,
@@ -227,10 +284,10 @@
 
 @media screen and (max-height: 600px) {
   .pvp p {
-    font-size: 13px;
+    font-size: 20px;
   }
   .gameRules p {
-    font-size: 16px;
+    font-size: 20px;
   }
 }
 
@@ -240,6 +297,106 @@
   }
 
   .gameRules p {
-    font-size: 24px;
+    font-size: 20px;
+  }
+} */
+
+@media screen and (max-width: 1550px) {
+  h1 {
+    font-size: 60px;
+  }
+  .logo {
+    height: 90px;
+  }
+  .logo2 {
+    height: 90px;
+  }
+  .pvp p {
+    font-size: 20px;
+  }
+  .gameRules p {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 1120px) {
+  h1 {
+    font-size: 50px;
+  }
+  .logo {
+    padding-left: 25%;
+    height: 70px;
+  }
+  .logo2 {
+    padding-left: 25%;
+    height: 70px;
+  }
+}
+@media screen and (max-width: 960px) {
+  .title {
+    height: 80px;
+  }
+  h1 {
+    font-size: 40px;
+    position: fixed;
+    padding-left: 25%;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    color: $yellow;
+    text-transform: none;
+    text-shadow: none;
+  }
+  .logo {
+    padding-left: 5%;
+    height: 70px;
+  }
+  .logo2 {
+    padding-left: 170%;
+    height: 70px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  h1 {
+    font-size: 35px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .mainMenu {
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $purple;
+    box-shadow: 5px 10px 5px 1px $black;
+    border-radius: 2rem;
+    border: 2px solid $black;
+    font-family: spaceGroteskBold;
+    padding: 25px;
+  }
+  .title {
+    width: 100%;
+    display: flex;
+  }
+  h1 {
+    font-size: 45px;
+  }
+  .logo {
+    display: none;
+  }
+  .logo2 {
+    padding-left: 5%;
+    height: 70px;
+  }
+  .pvp {
+    width: 100%;
+  }
+  .gameRules {
+    width: 100%;
+  }
+  .pvp img {
+    margin-left: 0%;
   }
 }

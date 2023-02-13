@@ -9,7 +9,22 @@
   font-family: spaceGroteskMedium;
   src: url(../../assets/fonts/static/SpaceGrotesk-Medium.ttf);
 }
-
+h1 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  margin: 10px;
+  text-transform: uppercase;
+  -webkit-text-stroke: 2px #320368;
+  text-shadow: 1px 1px 0px #320368, 2px 2px 0px #320368, 1px 1px 0px $black,
+    3px 4px 0px $black, 4px 5px 0px $black, 5px 6px 0px $black;
+}
+.header {
+  font-size: 80px;
+  color: $yellow;
+  margin: 10px;
+}
+.title {
+  padding-bottom: 1%;
+}
 .inGameContainer {
   font-family: spaceGroteskBold;
   width: 100vw;
@@ -23,8 +38,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45%;
+  width: 65%;
   margin: auto;
+  margin-top: -50px;
   justify-content: space-between;
   transform: translateY(75%);
 }
@@ -47,6 +63,8 @@
 
 .link:hover {
   color: rgb(218, 216, 216);
+  transform: scale(1.5);
+  box-shadow: 0px 2px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 .BlackBoard,
@@ -54,7 +72,6 @@
 .playerOne,
 .playerTwo,
 .yellowTurn,
-.turnText,
 .marker,
 .inGameFooter,
 .winnerBoard {
@@ -66,6 +83,8 @@
 
 .playerOne,
 .playerTwo {
+  margin-top: 150px;
+  width: 200px;
   background-color: $white;
   padding: 16px 28px;
   border: 2px solid black;
@@ -79,6 +98,7 @@
   position: absolute;
   bottom: 84%;
   left: 30%;
+  transform: scale(1);
 }
 
 .playerOne {
@@ -90,10 +110,14 @@
 }
 
 .yellowTurn {
-  top: 86%;
+  position: absolute;
+  left: 85%;
+  margin-top: -7%;
 }
 .turnText {
-  top: 87%;
+  position: absolute;
+  left: 82%;
+  margin-top: 8%;
 }
 
 .marker {
@@ -103,44 +127,31 @@
 }
 
 .turn p {
-  font-size: 20px;
+  position: absolute;
 }
 
 .inGameFooter {
   background-color: $darkPurple;
-  width: 100%;
-  height: 23%;
-  top: 88.4%;
-  z-index: 1;
 }
 
 .inGameFooterRed {
   background-color: $red;
   width: 100%;
   height: 23%;
-  top: 88.4%;
+  top: 58.4%;
   z-index: 1;
 }
 
 .inGameFooterBlue {
   background-color: $darkPurple;
-  width: 100%;
-  height: 23%;
-  top: 88.4%;
-  z-index: 1;
 }
 
 .inGameFooterYellow {
   background-color: $yellow;
   width: 100%;
   height: 23%;
-  top: 88.4%;
+  top: 58.4%;
   z-index: 1;
-}
-
-.turn img,
-.turnText {
-  z-index: 4;
 }
 
 .BlackBoard {
@@ -152,6 +163,7 @@
 }
 
 .board {
+  margin-top: 5rem;
   cursor: pointer;
   height: 37.5rem;
   width: 40rem;
@@ -237,7 +249,7 @@
 }
 
 .winnerBoard {
-  top: 86%;
+  top: 55%;
   z-index: 4;
   background-color: $white;
   padding: 16px 28px;
@@ -253,42 +265,76 @@
   color: $white;
   border-radius: 1rem;
 }
+.winnerBoard button:hover {
+  opacity: 0.85;
+}
 
 .BlackBoard,
 .WhiteBoard {
   width: 632px;
   height: 584px;
 }
+@media screen and (max-width: 1260px) {
+  .playerOne {
+    position: absolute;
+    margin-top: 200px;
+    left: 15%;
+  }
 
+  .playerTwo {
+    position: absolute;
+    margin-top: 200px;
+    left: 88%;
+  }
+  .board {
+    margin-top: 12rem;
+  }
+  .yellowTurn {
+    position: absolute;
+    margin-top: -50px;
+    left: 88%;
+  }
+  .playerOne img,
+  .playerTwo img {
+    position: absolute;
+    margin-top: -50px;
+    bottom: 84%;
+    left: 30%;
+    transform: scale(1.2);
+  }
+  .turn p {
+    position: absolute;
+    margin-top: -50px;
+    left: 82%;
+  }
+  .turnText {
+    position: absolute;
+    margin-top: 130px;
+    left: 85%;
+    position: absolute;
+  }
+}
 @media screen and (max-width: 1190px) {
   .marker {
     display: none;
   }
-
   .playerOne {
-    left: 20%;
-    padding: 1rem 1rem;
-
-    p {
-      font-size: 16px;
-    }
-
-    h2 {
-      font-size: 36px;
-    }
+    margin-left: 100px;
+    margin-top: 60px;
   }
   .playerTwo {
-    left: 80%;
-    padding: 1rem 1rem;
-    p {
-      font-size: 16px;
-    }
-
-    h2 {
-      font-size: 36px;
-    }
+    width: 100px;
+    margin-left: -150px;
+    margin-top: 60px;
   }
+  .yellowTurn {
+    position: absolute;
+    margin-top: -130px;
+    left: 75%;
+  }
+
   .board {
+    margin-top: 20px;
     width: 22rem;
     height: 22rem;
   }
@@ -310,8 +356,96 @@
     margin-top: 25px;
   }
 }
+@media screen and (max-width: 1200px) {
+  .playerOne,
+  .playerTwo {
+    width: 100px;
+  }
+  .playerOne p {
+    text-align: center;
+    padding-top: 15px;
+    font-size: 18px;
+  }
+  .playerTwo p {
+    text-align: center;
+    padding-top: 15px;
+    font-size: 18px;
+  }
 
-@media screen and (max-width: 1190px) {
+  .yellowTurn {
+    width: 100px;
+  }
+  .turn p {
+    font-size: 15px;
+  }
+  .turnText {
+    position: absolute;
+    margin-top: 65px;
+    left: 73%;
+  }
+}
+@media screen and (max-width: 1030px) {
+  .header {
+    font-size: 60px;
+  }
+  .turnText {
+    margin-top: 85px;
+  }
+}
+@media screen and (max-width: 960px) {
+  .header {
+    margin-left: 5%;
+    font-size: 25px;
+  }
+  .inGameNav {
+    width: 70%;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .logo {
+    display: none;
+  }
+  .logo2 {
+    display: none;
+  }
+  .yellowTurn {
+    height: 70px;
+    width: 300px;
+    margin-top: -150px;
+    margin-left: -25%;
+  }
+  .turnText {
+    margin-top: 45px;
+    left: 45%;
+  }
+  .board {
+    margin-top: 40px;
+  }
+  .playerOne {
+    width: 130px;
+    height: 160px;
+    margin-top: 290px;
+    margin-left: 15%;
+  }
+  .playerTwo {
+    width: 130px;
+    height: 160px;
+    margin-top: 290px;
+    margin-left: -15%;
+  }
+  .playerOne img,
+  .playerTwo img {
+    transform: scale(0.5);
+  }
+  .playerOne p {
+    margin-top: -30px;
+  }
+  .playerTwo p {
+    margin-top: -30px;
+  }
+}
+/*@media screen and (max-width: 1190px) {
   .playerOne,
   .playerTwo {
     top: 24%;
@@ -503,3 +637,212 @@
     display: none;
   }
 }
+/*@media screen and (max-width: 1205px) {
+  .board {
+    margin-top: 9rem;
+  }
+  .header {
+    font-size: 40px;
+  }
+  .yellowTurn {
+    left: 88%;
+    margin-top: -10%;
+  }
+  .playerOne,
+  .playerTwo {
+    margin-top: 250px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .playerOne,
+  .playerTwo {
+    top: 24%;
+    left: 37%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    width: 10rem;
+    border: 2px solid red;
+
+    h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    img {
+      top: 7px;
+      left: -20px;
+      width: 40px;
+    }
+  }
+
+  .playerTwo {
+    left: 63%;
+    margin: 0;
+    img {
+      left: 135px;
+    }
+  }
+
+  .turn {
+    width: 150x;
+
+    img {
+      width: 150px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    h2 {
+      font-size: 36px;
+    }
+  }
+
+  .inGameFooter {
+    top: 90%;
+  }
+
+  .ballDiv:before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 10px;
+    top: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: 2s;
+  }
+
+  .marker {
+    width: 30px;
+    height: 30px;
+    display: none;
+  }
+}
+@media screen and (max-height: 820px) {
+  .inGameNav {
+    transform: translateY(15%);
+  }
+
+  .marker {
+    top: 11%;
+    width: 25px;
+  }
+}
+@media screen and (max-width: 620px) {
+  .playerOne,
+  .playerTwo {
+    top: 12%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    width: 10rem;
+    border: 2px solid red;
+    padding: 0.7rem 1rem;
+
+    h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    img {
+      top: 7px;
+      left: -20px;
+      width: 40px;
+    }
+  }
+
+  .playerTwo {
+    left: 50%;
+    margin: 0;
+    top: 20%;
+
+    img {
+      left: 135px;
+    }
+  }
+
+  .inGameNav {
+    gap: 2rem;
+    justify-content: center;
+    transform: translateY(10px);
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .marker {
+    top: 28%;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .playerOne,
+  .playerTwo {
+    padding: 0;
+
+    img {
+      width: 20px;
+      left: -10px;
+      top: 2px;
+    }
+  }
+
+  .playerTwo {
+    top: 19%;
+  }
+
+  .marker {
+    top: 25%;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// @media screen and (m-height: 200px) {
+//   .inGameNav {
+//     transform: translateY(15%);
+//   }
+
+//   .marker {
+//     top: 11%;
+//     width: 25px;
+//   }
+// }
+
+@media screen and (max-height: 620px) {
+  .playerOne,
+  .playerTwo {
+    padding: 0;
+    top: 20%;
+
+    img {
+      width: 25px;
+      height: 25px;
+      left: -13px;
+      top: 1px;
+    }
+  }
+
+  .marker {
+    display: none;
+  }
+}*/
